@@ -1,0 +1,170 @@
+services:
+  catalog.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
+    # ConnectionStrings__Database znaci da override ConnectionStrings:Database from appsettings.json koi je localhost za Catalog.
+    # stoga, Server=catalogdb jer container_name:catalogdb), Port=5432 isto kao u appsettings(localhost) jer je to i za Postgres dockercontainer 
+    # default port. 
+    # Iz Postman gadjam 6060 port (jer https uvek radim) of Catalog.API docker container koji komunicira preko 8081(https) sa catalogdb
+    # docker container medjusobono. Svaki container u docker koristi 8081 za komunikaciju sa drugim docker container jer svaki container 
+    # je PC za sebe pa to moze. 
+    depends_on:
+      - catalogdb
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+   
+  catalogdb:
+    container_name: catalogdb # From docker-compose.yml
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CatalogDb
+     # ovo  iznad je iz Catalog appsettings
+    restart: always
+    ports:
+      - "5432:5432" 
+      # levi 5432 je localhost(kad u VS pokrenem Catalog.API), a desni 5432 je docker container of catalogdb (koji igrom slucaja je i localhost za postgres docker)
+      # mogo sam ovaj levi bilo koji slobodan port uzeti za localhost(laptop)
+    volumes:
+      - postgres_catalog:/var/lib/postgresql/data/
+  
+  basketdb:
+    container_name: basketdb # From docker-compose.yml
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres 
+      - POSTGRES_DB=BasketDb 
+      # Iz basket appsettings je ovo iznad iz Basket
+    restart: always
+    ports:
+      - "5433:5432" 
+      # levi 5433 je localhost(kad u VS pokrenem Basket.API), a desni 5432 je docker container of catalogdb (koji igrom slucaja je i localhost za postgres docker)
+      # mogo sam ovaj levi bilo koji slobodan port uzeti za localhost(laptop) osim 5432 koji je zauzet vec za catalog postgres
+    volumes:
+      - postgres_basket:/var/lib/postgresql/data/
+  
+  distributedcache:
+    container_name: distributedcache # From docker-compose.yml
+    restart: always
+    ports:
+      - "6379:6379"
+      # levi je localhost(app running on localhost tj kad u VS pokrenem Basket.API), a desni je docker Redis. Kevi sam mogo izabrati koji god slobodni port. 
+      # ako neki naredni servis bude trebao redis, levi port !=6379 jer je vec zauzet ovde
+      # dok desni ostaje isti jer je to default i za Redis localhost i za Redis docker
+   
+  orderdb: 
+    container_name: orderdb # From docker-compose.yml 
+    environment:
+      - ACCEPT_EULA=Y 
+      - SA_PASSWORD=SwN12345678 
+     # OVo sam isto u appsettings stavio u Ordering
+    restart: always
+    ports:
+      - "1434:1433" 
+      # Levi je localhost, ali sam na kompu nesto zajebao pa mi je 1433 zauzet (u appsettings napisao isto), pa sam uzeo prvi slobodan, jer 1433 je default za SQL Server. 
+      # Desni je docker i to je 1433 default za SQL Server (igrom slucaja je isto default i za localhost)
+  
+  messagebroker:
+    container_name: messagebroker # From docker-compose.yml
+    hostname: ecommerce-mq # Da bismo u chrome videli a mora ovo uvek 
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+     # Levi 5672 je localhost za RabbitMQ, dok desni 5672 je Docker (igrom slucaja su isti)
+     # Levi 15672 je localhost za RabbitMQ Management Dashboard (otvaram ga u chrome) ,a desni 15672 je Docker (igrom slucaja su isti)
+  basket.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Redis=distributedcache:6379 
+      # ConnectionStrings_Database objasnjenje isto kao u catalog.API. Jer svaki container je PC za sebe i zato i ovde moze 5432
+      # ConnectionStrigns__Redis znaci da override ConnectionStrings:Redis iz appsettings za Basket.API
+      - ConnectionStrings__DiscountUrl=https://discount.grpc:8081 
+      # Moram da override GrpcSettings:DiscountURL koje sam dodao jer Basket je gRPC Client
+      # jer discount.grpc je Discount container name iz docker-compose.yml. 80801 jer Catalog.APi/Basket.API i Discount.gRPC containers 
+      # koriste taj port jer svaki container je PC za sebe.
+      - MessageBroker__Host=amqp://ecommerce-mq:5672 # iznad pise pa moraa ovako da se override iz appsettings
+      - MessageBroker__UserName=guest # iznad pise pa moraa ovako da se override iz appsettings za basket
+      - MessageBroker__Password=guest # iznad pise pa moraa ovako da se override iz appsettings za basket
+    depends_on:
+      - basketdb
+      - distributedcache
+      - discount.grpc
+      - messagebroker 
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+     # Iz Postman gadjam 6061 port (jer https uvek radim) of Catalog.API docker container koji komunicira preko 8081(https) sa baksetdb i redis
+      # docker containerima medjusobono. Svaki container u docker koristi 8081 za komunikaciju sa drugim docker container jer svaki container 
+      # je PC za sebe pa to moze.
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  discount.grpc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "6002:8080"
+      - "6062:8081"
+      # Iz Postman, gadjam 6062 (jer uvek https radim) of Discount.gRPC docker container koji preko 8081(https) sa ostalim containers 
+      # jer svaki container je PC za sebe i onda 8081 moze u svakom container (Catalog.API, Basket.API i Discout.gRPC)
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+  ordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678;Encrypt=False;TrustServerCertificate=True
+      # Override from appsettings iz Ordering jer server sad nije localhost 1434 vec orderdb container 
+      - MessageBroker__Host=amqp://ecommerce-mq:5672 # iznad pise pa moraa ovako da se override iz appsettings za Ordering
+      - MessageBroker__UserName=guest # iznad pise pa moraa ovako da se override iz appsettings za Ordering
+      - MessageBroker__Password=guest # iznad pise pa moraa ovako da se override iz appsettings za Ordering
+      - FeatureManagement__OrderFullfilment=false # override from appsettings
+    depends_on:
+      - orderdb
+      - messagebroker 
+    ports:
+      - "6003:8080"
+      - "6063:8081"
+      # Iz Postman, gadjam 6063 (jer uvek https radim) of Ordering.API docker container koji preko 8081(https) sa ostalim containers 
+      # jer svaki container je PC za sebe i onda 8081 moze u svakom container (Catalog.API, Basket.API i Discout.gRPC i Ordering.API)
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  yarpapigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "6004:8080"
+      - "6064:8081"
+      # 6004/6064 je localhost, a 8080/8081 docker container port 
+    depends_on:
+      - catalog.api
+      - basket.api
+      - ordering.api 
+      # jer u appsettings/appsettings.Local u Yarp samo za ove servise sam radio, Discount ne jer njega Basket poziva (preko gRPC)
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

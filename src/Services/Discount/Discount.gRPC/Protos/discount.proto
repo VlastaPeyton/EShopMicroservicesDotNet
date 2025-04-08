@@ -1,0 +1,68 @@
+
+/* ovo se napravilo automatksi zbog Dodavanja gRPC Client za Basket.API  preko 
+Basket.API -> add -> Connected Services -> Service References kartica -> + -> gRPC -> 
+File select discount.proto iz Discount -> type = Client */
+
+/* Protobuf language za definiciju contract(interface) koji ce se koristiti 
+u service-service (Bakset-Discount) komunikaciji bez obzira u kom su jeziku napisani
+ti servisi. Za microservices je idealan slucaj da se ovo koristi. Automatski se generise
+kod koji namesta inter-service komunikaciju. 
+
+   Nakon definisanja discount.proto, u Service folder pravim DiscountService.cs koja ce ove
+   metode(Endpoints) da implementira kroz .NET. 
+   */
+syntax = "proto3"; // Protobu verzija
+// Opciono da generise klasu unutar Discount.gRPC projekta
+option csharp_namespace = "Discount.gRPC";
+
+package discount;
+
+// Discount service definition
+service DiscountProtoService {
+	/* Discount Endpoints sa "REST API gRPC Endpoints of Discount" slike 
+	jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket sto bilo 
+	imamo Endpoints za Discount service, samo su oni gRPC, a ne API tipa. Discount je gRPC Server
+	dok Basket je gRPC Client.*/
+	rpc GetDiscount (GetDiscountRequest) returns (CouponModel);
+	rpc CreateDiscount (CreateDiscountRequest) returns (CouponModel);
+	rpc UpdateDiscount (UpdateDiscountRequest) returns (CouponModel);
+	rpc DeleteDiscount (DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+
+// GetDiscountRequest samo productName atribut ima 
+message GetDiscountRequest{
+	string ProductName = 1; // 1, jer samo jedan atribut ima 
+}
+
+/*  Coupon.cs ima Id, ProductName, Description i Amount polja, zato CouponModel mora imati
+takva polja "istog imena" (ili bar isto ime ali sve malim slovima, jer .NET automatski prevodi 
+ime atributa u PascalCase tj productName u ProductName. U Postman body, moram pisati imena 
+atributa kao u ovom proto file, i zato cu pisati ovde kao u Coupon.cs da u Postman ne zbunim se. */
+message CouponModel{
+	int32 Id = 1;
+	string ProductName = 2;
+	string Description = 3;
+	int32 Amount = 4; // Svaki atribut mora imati redni broj 
+	// Amount je kolicina para koliko kupon umanjuje vrednost producta
+}
+
+message CreateDiscountRequest{
+	CouponModel Coupon = 1;
+}
+
+message DeleteDiscountRequest{
+	string ProductName = 1;
+}
+
+message UpdateDiscountRequest{
+	string Coupon = 1;
+}
+
+message DeleteDiscountResponse{
+	bool Success = 1;
+}
+/* Kao sto smo u Catalog i Basket Endpoints definisali Request i Response, tako i ovde mora 
+samo u Protobuf  obliku.
+
+Desni klik na discount.proto -> Properties -> Build Action = Protobug compiler, a gRPC Stub Classes = Server only 
+moram da namestim da bi Discount primao zahteve od Basket.  */

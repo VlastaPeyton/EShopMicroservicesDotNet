@@ -1,0 +1,45 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projects\\EShopMicroservices\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|c:\\projects\\eshopmicroservices\\src\\services\\ordering\\ordering.application\\orders\\eventhandlers\\integration\\basketcheckouteventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|solutionrelative:src\\services\\ordering\\ordering.application\\orders\\eventhandlers\\integration\\basketcheckouteventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BasketCheckoutEventHandler.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Orders\\EventHandlers\\Integration\\BasketCheckoutEventHandler.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Application\\Orders\\EventHandlers\\Integration\\BasketCheckoutEventHandler.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Orders\\EventHandlers\\Integration\\BasketCheckoutEventHandler.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Application\\Orders\\EventHandlers\\Integration\\BasketCheckoutEventHandler.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T17:55:41.602Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
