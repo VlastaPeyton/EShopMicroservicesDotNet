@@ -5430,11 +5430,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
       "projectName": "Catalog.API",
-      "projectPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Catalog\\Catalog.API\\obj\\",
+      "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Catalog\\Catalog.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5455,8 +5455,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
-              "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj"
+            "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
+              "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj"
             }
           }
         }

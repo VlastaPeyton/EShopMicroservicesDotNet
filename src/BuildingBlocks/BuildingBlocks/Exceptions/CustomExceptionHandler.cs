@@ -12,13 +12,12 @@ namespace BuildingBlocks.Exceptions
         // Mora ova metoda i to async zbog interface
         public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
         {
-            // ValueTask -> moze metoda biti i async i sync
-            // ValueTask pokriva i Task(async) i sync slucaj.
+            // ValueTask -> moze metoda biti i async i sync, jer ValueTask pokriva i Task(async) i sync slucaje.
 
             logger.LogError($"Error message {exception.Message}");
 
             /* Pattern matching with switch.
-              Ako exxception je neki od napisanih u ovom folderu, ValidationException (iz FluentValidaiton) then
+              Ako exception je neki od napisanih u ovom folderu, ValidationException (iz FluentValidaiton) then
              evaluate exception object and assing values to a tuple (Detail, Title, StatusCode) jer ova tri polja
              imaju u Global Excpetion Handler u Program.cs */
             (string Detail, string Title, int StatusCode) details = exception switch
@@ -37,7 +36,7 @@ namespace BuildingBlocks.Exceptions
                     context.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
 
-                // Ovo pokriva i ProductNotFoundException jer ta klasa nasledila NotFoundException
+                // Ovo pokriva i ProductNotFoundException iz Product service, jer ta klasa nasledila NotFoundException
                 NotFoundException =>
                 (
                     exception.Message,
@@ -72,7 +71,7 @@ namespace BuildingBlocks.Exceptions
             };
 
             // Extension method - dodajem traceId custom metodu na ProblemDetails klasu, bez da modifikujem tu klasu
-            // Prvi argument u Add je ime te metode, a ostali argumenti su  argumenti te metode
+            // Prvi argument u Add je ime te metode, a ostali argumenti su argumenti te metode
             problemDetails.Extensions.Add("traceId", context.TraceIdentifier);
 
             if (exception is ValidationException validationException)

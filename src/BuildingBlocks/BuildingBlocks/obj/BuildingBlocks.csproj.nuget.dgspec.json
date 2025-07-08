@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {}
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
+        "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
         "projectName": "BuildingBlocks",
-        "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
+        "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\obj\\",
+        "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

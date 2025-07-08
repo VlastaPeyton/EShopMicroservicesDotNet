@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "czaDQ4ZvCwo=",
+  "dgSpecHash": "Gl+7chjro2A=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Basket\\Basket.API\\Basket.API.csproj",
+  "projectFilePath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Basket\\Basket.API\\Basket.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\aspnetcore.healthchecks.npgsql\\8.0.0\\aspnetcore.healthchecks.npgsql.8.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\aspnetcore.healthchecks.redis\\8.0.0\\aspnetcore.healthchecks.redis.8.0.0.nupkg.sha512",

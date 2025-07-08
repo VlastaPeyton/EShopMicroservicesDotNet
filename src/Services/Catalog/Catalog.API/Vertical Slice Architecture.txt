@@ -1,0 +1,5 @@
+﻿Catalog service ima Vertical slice arhitekturu. To znaci da svi layeri su unutar istog, Catalog, projekta. Kod Clean arhitekture (Ordering service)
+videcemo kako svaki layer ima svoj folder(projekat). 
+Models folder je Domain layer. 
+CQRS pattern ide odlicno uz Vertical slice. 
+Products folder predstavlja Features folder koji je radjen u CQRS maniru gde svaki subfolder predstavlja Command/Query sa Handler i Endpoint.

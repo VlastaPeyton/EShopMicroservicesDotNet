@@ -197,11 +197,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\ApiGateways\\YarpApiGateway\\YarpApiGateway.csproj",
+      "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\ApiGateways\\YarpApiGateway\\YarpApiGateway.csproj",
       "projectName": "YarpApiGateway",
-      "projectPath": "C:\\Projects\\EShopMicroservices\\src\\ApiGateways\\YarpApiGateway\\YarpApiGateway.csproj",
+      "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\ApiGateways\\YarpApiGateway\\YarpApiGateway.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\EShopMicroservices\\src\\ApiGateways\\YarpApiGateway\\obj\\",
+      "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\ApiGateways\\YarpApiGateway\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

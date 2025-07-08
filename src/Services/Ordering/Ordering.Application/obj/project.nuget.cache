@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7NgZpn+eRDw=",
+  "dgSpecHash": "VoFitdM0mR0=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
+  "projectFilePath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.0.1\\fluentvalidation.aspnetcore.11.0.1.nupkg.sha512",

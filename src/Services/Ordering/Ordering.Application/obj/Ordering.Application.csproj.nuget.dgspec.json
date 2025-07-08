@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj": {}
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj": {
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj",
+        "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj",
         "projectName": "BuildingBlocks.Messaging",
-        "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj",
+        "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\obj\\",
+        "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -75,14 +75,14 @@
         }
       }
     },
-    "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
+        "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
         "projectName": "BuildingBlocks",
-        "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
+        "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\obj\\",
+        "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -166,14 +166,14 @@
         }
       }
     },
-    "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj": {
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
+        "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
         "projectName": "Ordering.Application",
-        "projectPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
+        "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Application\\obj\\",
+        "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -194,14 +194,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj": {
-                "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj"
+              "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj": {
+                "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks.Messaging\\BuildingBlocks.Messaging.csproj"
               },
-              "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
-                "projectPath": "C:\\Projects\\EShopMicroservices\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj"
+              "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj": {
+                "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\BuildingBlocks\\BuildingBlocks\\BuildingBlocks.csproj"
               },
-              "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj": {
-                "projectPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj"
+              "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj": {
+                "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj"
               }
             }
           }
@@ -247,14 +247,14 @@
         }
       }
     },
-    "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj": {
+    "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj",
+        "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj",
         "projectName": "Ordering.Domain",
-        "projectPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj",
+        "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\Ordering.Domain.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Ordering\\Ordering.Domain\\obj\\",
+        "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

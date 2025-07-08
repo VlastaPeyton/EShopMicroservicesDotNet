@@ -4,22 +4,21 @@ using MediatR;
 
 namespace BuildingBlocks.Behaviours
 {
-    public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
-        : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
+    public class ValidationBehaviour<TRequest, TResponse> (IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
         // ICommand jer se validation radi samo za Command
-    {  /* -IPipelineBehaviour je iz MediatR. 
-          -IValidator<TRequest> isto sto i IValidator<CreateProductCommand> u CreateProductCommandHandler.cs
-          IEnumerable koristim jer ocu sve zeljeno da validiram
-          IValidator znace da se odnosi na CreateProductCommandValidator zbog DI u MediatR Pipeline u Program.cs
-        jer je CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    {  /* - IPipelineBehaviour je iz MediatR. 
+          - IValidator<TRequest> isto sto i IValidator<CreateProductCommand> u CreateProductCommandHandler.cs
+          - IEnumerable koristim jer ocu sve zeljeno da validiram
+          - IValidator znace da se odnosi na CreateProductCommandValidator zbog DI u MediatR Pipeline u Program.cs jer je CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
           
-          Ovo je objasnjenje za svaku Command kome smo dodali validation. */
+          Ovo je objasnjenje za svaku Command kome smo dodali validation u bilo kom service. */
           
         // Mora metoda zbog interface i to async
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             /* Request je incoming Request from Client to Endpoint.
-               Next je next pipeline behavior or actual handle method sa slike "How MediatR pipeline behavior works*/
+               Next je next pipeline behavior or actual handle method sa slike "How MediatR pipeline behavior works"
+            */
 
             // ValidationContext comes from FluentValidation 
             var context = new ValidationContext<TRequest>(request);

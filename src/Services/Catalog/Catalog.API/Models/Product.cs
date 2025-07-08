@@ -1,39 +1,17 @@
 ﻿namespace Catalog.Api.Models
-{
-    public class Product // Product entity
+{   
+    // Catalog service ima Vertical slice arhitekturu, pa svi layers su unutar istog projekta under Catalog folder. Da je Clean architecture, Models folder bi bio Domain layer posebno, a ovde je unutar Catalog foldera Domain layer.
+    public class Product // Product entity  tj kolone tabele u bazi
     {
-        public Guid Id { get; set; } // Zbog imena, automatski ce baza znati da je ovo PK
-        public string Name { get; set; } = default!;
-        /* default! znaci da compiler ne izbaci upozorenje ako nije siguran 
-         da cemo explicitno iniicjalizovati sa non null vrednst ovo polje. 
-           
-           Product has 1-to-many relationship with Category, jer 1 Product moze 
-        pripadati u vise kategorija proizvoda. */
+        public Guid Id { get; set; } // Zbog imena, automatski ce baza znati da je ovo PK. Guid je najbolji type za Id. Ne sme imati default value.
+        public string Name { get; set; } = default!; 
+        // default da bude default vrednost ako ne definisem prilikom kreiranja objekta. 
+        // ! - compiler nece prikazati upozorenje da vrednost mora biti inicijalizovana
         public List<string> Category { get; set; } = new();
-        // new() = new List<string>()
-
+        // Product-Categori veza je 1-to-many, jer 1 Product moze biti u vise kategorija
+        // Category kolona postojace u tabeli, jer string nije object type. Da je bilo List<Klasa>, ovo bi bio navigation attribute koji bih u LINQ morao sa Include da dohvatim ako zelim.
         public string Description { get; set; } = default!;
-        public string ImageFile { get; set; } = default;
-
-        public Decimal Price { get; set; }
-
-        /* Nisam definisam konstruktor, stoga mogu uraditi sledece prilikom setovanja 
-         polja, jer sva polja su public set.
-           1) product = new Product();
-              product.Id = Guid.NewGuid()";
-              ....
-              product.Price = 10.5; 
-            
-           2) product = new Product 
-              {
-                Id = Guid.NewGuid();
-                ...
-                Price = 10.5;
-              };
-            
-            Id polje smo ovako definisali, jer kad napravimo u (Postgre NoSQL) bazi tabelu 
-        cije ce kolone biti ova polja iz Products, Id ce se samo generisati, bez da radimo rucno
-        kao u ova dva primera iznad.
-             */
+        public string ImageFile { get; set; } = default!;
+        public Decimal Price { get; set; } // Ne sme imati default zbog logike poslovanja.
     }
 }

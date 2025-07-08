@@ -11,7 +11,6 @@ namespace BuildingBlocks.Behaviours
         where TResponse : notnull
     {   /* IRequest, jer se logging radi i za Command i Query, a ICommand/IQuery implementiraju IRequest 
          IPipelineBehaviour je iz MediatR. 
-         LoggingBehavior<TRequest, TResponse> jer i za Command i Query se radi 
         */
 
         // Mora ovam etoda zbog interface i to async da dodam

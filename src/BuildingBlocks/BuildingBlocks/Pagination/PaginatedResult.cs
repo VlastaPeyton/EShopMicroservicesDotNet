@@ -1,9 +1,7 @@
 ﻿
 namespace BuildingBlocks.Pagination
 {
-    public class PaginatedResult<TEntity>
-        (int pageIndex, int pageSize, long count, IEnumerable<TEntity> data)
-        where TEntity : class
+    public class PaginatedResult<TEntity> (int pageIndex, int pageSize, long count, IEnumerable<TEntity> data) where TEntity : class
     {   
         /* Pravim public get polja iz ovih argumenta from primary constructor jer mi treba 
          da im pristupim. Mogo sam i bez Primary ctor, ali onda moralo je ctor da se pise.*/

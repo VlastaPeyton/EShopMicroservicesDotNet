@@ -5010,11 +5010,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\EShopMicroservices\\src\\Services\\Discount\\Discount.gRPC\\Discount.gRPC.csproj",
+      "projectUniqueName": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Discount\\Discount.gRPC\\Discount.gRPC.csproj",
       "projectName": "Discount.gRPC",
-      "projectPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Discount\\Discount.gRPC\\Discount.gRPC.csproj",
+      "projectPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Discount\\Discount.gRPC\\Discount.gRPC.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\EShopMicroservices\\src\\Services\\Discount\\Discount.gRPC\\obj\\",
+      "outputPath": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Discount\\Discount.gRPC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
