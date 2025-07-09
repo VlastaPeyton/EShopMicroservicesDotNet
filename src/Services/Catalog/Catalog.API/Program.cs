@@ -28,7 +28,7 @@ builder.Services.AddMarten(config =>
 {
     config.Connection(builder.Configuration.GetConnectionString("Database")!);
     // ! tells compiler result wont be null, supressing nullable reference type warning
-}).UseLightweightSessions(); // LightWeightDocumentSession je najbolji za Marten kao sto znamo iz teorije.
+}).UseLightweightSessions(); // LightWeightDocumentSession je dobar posto nema change tracking koji nam ne treba.
 
 // Seeding DB only for the first time if DB is empty only for Development, never in Production
 // A development se bira u podesavanjima u VS 

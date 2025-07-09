@@ -5,33 +5,34 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
-    # ConnectionStrings__Database znaci da override ConnectionStrings:Database from appsettings.json koi je localhost za Catalog.
-    # stoga, Server=catalogdb jer container_name:catalogdb), Port=5432 isto kao u appsettings(localhost) jer je to i za Postgres dockercontainer 
-    # default port. 
-    # Iz Postman gadjam 6060 port (jer https uvek radim) of Catalog.API docker container koji komunicira preko 8081(https) sa catalogdb
-    # docker container medjusobono. Svaki container u docker koristi 8081 za komunikaciju sa drugim docker container jer svaki container 
-    # je PC za sebe pa to moze. 
+    # ConnectionStrings__Database znaci da override ConnectionStrings:Database from appsettings.json koji je connection string za Catalog.API in localhost with CatalogDB in Docker, jer catalogdb je uvek in Docker meni.
+    # Mora 5432 jer to je Postgres port in  Postgres container 
     depends_on:
       - catalogdb
     ports:
       - "6000:8080"
       - "6060:8081"
+      # levi port je port of Catalog.API docker container (6000 http, 6060 https) koji client gadja. 
+      # desni port je port of Catalog.API docker container na koji se mapira levi port 
+      # U Docker rezimu, Catalog.API container koristi levi port da primi sadrzaj koji mapira na desni port. Onda koristi 5432(isti port kao u localhost igrom slucaja ali je dobra praksa) da komunicira sa catalogdb container.
+      # Mapiranje portova se radi jer mozda na host PC postoji neki program koji koristi 8080/8081,a proverio sam da 6000/6060 je slobodan i koristim za hosting Catalog.API u docker obliku.
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
    
   catalogdb:
-    container_name: catalogdb # From docker-compose.yml
+    container_name: catalogdb # From docker-compose.yml. Ovo koristim u catalog.api:environment iznad
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=CatalogDb
-     # ovo  iznad je iz Catalog appsettings
+     # Ovo iznad je iz Catalog appsettings. Objasnjeno u appsettings.json
     restart: always
-    ports:
+    ports:    
       - "5432:5432" 
-      # levi 5432 je localhost(kad u VS pokrenem Catalog.API), a desni 5432 je docker container of catalogdb (koji igrom slucaja je i localhost za postgres docker)
-      # mogo sam ovaj levi bilo koji slobodan port uzeti za localhost(laptop)
+      # levi port je Catalog u localhost rezimu.
+      # desni port je docker container port of catalogdb (mora ovaj port za Postgres in Docker) kojim catalogdb komunicira sa Catalog.API koji je u localhost rezimu.
+      # U localhost rezimu, Catalog.API koristi levi port da komunicira sa catalogdb container(koji koristi desni port), dok Catalog.API koristi 5000/5050 da prima http Request from client.
     volumes:
       - postgres_catalog:/var/lib/postgresql/data/
   
@@ -41,12 +42,13 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres 
       - POSTGRES_DB=BasketDb 
-      # Iz basket appsettings je ovo iznad iz Basket
+      # Ovo iznad je iz Basket appsettings. Objasnjeno kao Catalog appsettings.json
     restart: always
     ports:
       - "5433:5432" 
-      # levi 5433 je localhost(kad u VS pokrenem Basket.API), a desni 5432 je docker container of catalogdb (koji igrom slucaja je i localhost za postgres docker)
-      # mogo sam ovaj levi bilo koji slobodan port uzeti za localhost(laptop) osim 5432 koji je zauzet vec za catalog postgres
+      # levi port je Basket u localhost rezimu.
+      # desni port je docker container port of basketdb (mora ovaj port za Postgres in Docker) kojim basketdb komunicira sa Basket.API (koji je u localhost rezimu)
+      # U localhost rezimu, Basket.API koristi levi port da komunicira sa basketdb container(koji koristi desni port), dok Basket.API koristi 5001/5054 da prima http Reqeust from client.
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
   
@@ -55,9 +57,9 @@ services:
     restart: always
     ports:
       - "6379:6379"
-      # levi je localhost(app running on localhost tj kad u VS pokrenem Basket.API), a desni je docker Redis. Kevi sam mogo izabrati koji god slobodni port. 
-      # ako neki naredni servis bude trebao redis, levi port !=6379 jer je vec zauzet ovde
-      # dok desni ostaje isti jer je to default i za Redis localhost i za Redis docker
+      # levi je Basket u localhost rezimu za Redis. Uzeo sam isti port kao desni, jer mi lakse tako.
+      # desni port je docker container port of distributedcache (mora ovaj port za Redis in docker) kojim distributedcache komunciira sa Basket.API (koji je u localhost rezimu)
+      # U localhost rezimu, Basket.API koristi levi port da komuncira sa distributedcache(koji koristi desni port), dok Basket.API koristi 5001/5054 da prima http Request from client.
    
   orderdb: 
     container_name: orderdb # From docker-compose.yml 
@@ -89,12 +91,13 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
-      - ConnectionStrings__Redis=distributedcache:6379 
-      # ConnectionStrings_Database objasnjenje isto kao u catalog.API. Jer svaki container je PC za sebe i zato i ovde moze 5432
-      # ConnectionStrigns__Redis znaci da override ConnectionStrings:Redis iz appsettings za Basket.API
+      # Mora 5432 jer to je Postgres port in Postgres Docker container 
+      - ConnectionStrings__Redis=distributedcache:6379   # Mora 6379 jer to je Redis port in Redis container
+      # ConnectionStrings_Database objasnjenje isto kao u Catalog.API. 5432 je port in Postgres Docker (basketdb) jer svaki docker je container(PC) za sebe pa moze isti port i ovde kao catalogdb
+      # ConnectionStrigns__Redis znaci da override ConnectionStrings:Redis iz appsettings za Basket.API jer Redis imam uvek u Docker i njegov port je 6379
       - ConnectionStrings__DiscountUrl=https://discount.grpc:8081 
       # Moram da override GrpcSettings:DiscountURL koje sam dodao jer Basket je gRPC Client
-      # jer discount.grpc je Discount container name iz docker-compose.yml. 80801 jer Catalog.APi/Basket.API i Discount.gRPC containers 
+      # jer discount.grpc je Discount container name iz docker-compose.yml. 8081 jer Catalog.APi/Basket.API i Discount.gRPC containers 
       # koriste taj port jer svaki container je PC za sebe.
       - MessageBroker__Host=amqp://ecommerce-mq:5672 # iznad pise pa moraa ovako da se override iz appsettings
       - MessageBroker__UserName=guest # iznad pise pa moraa ovako da se override iz appsettings za basket
@@ -107,9 +110,10 @@ services:
     ports:
       - "6001:8080"
       - "6061:8081"
-     # Iz Postman gadjam 6061 port (jer https uvek radim) of Catalog.API docker container koji komunicira preko 8081(https) sa baksetdb i redis
-      # docker containerima medjusobono. Svaki container u docker koristi 8081 za komunikaciju sa drugim docker container jer svaki container 
-      # je PC za sebe pa to moze.
+      # levi port je port of Catalog.API docker container (6000 http, 6060 https) koji client gadja. 
+      # desni port je port of Catalog.API docker container na koji se mapira levi port 
+      # U Docker rezimu, Catalog.API container koristi levi port da primi sadrzaj koji mapira na desni port. Onda koristi 5432(isti port kao u localhost igrom slucaja ali je dobra praksa) da komunicira sa catalogdb container.
+      # Mapiranje portova se radi jer mozda na host PC postoji neki program koji koristi 8080/8081,a proverio sam da 6000/6060 je slobodan i koristim za hosting Catalog.API u docker obliku.
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

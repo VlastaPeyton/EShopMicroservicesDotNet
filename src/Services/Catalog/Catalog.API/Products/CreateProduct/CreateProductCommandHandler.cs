@@ -13,9 +13,11 @@ namespace Catalog.Api.Products.CreateProduct
     u kome je EF Core u komunikaciji sa bazom. Catalog service nema zvanicno sve layere, vec samo "API" layer ali to nema veze, svakako validacija uvek kad upisujem nesto u bazu.
     Validacija (FluentValidation NuGet package) u BuildingBlocks je smestena. 
         
-      Marten NuGet package omogucava LINQ za Postgre NoSQL + prednosti SQL Postre (Indexig) + pgAdming.
+      Marten NuGet package omogucava LINQ za Postgre NoSQL + prednosti SQL Postre (Indexig) + pgAdming. Marten nije EF Core i zato Seeding DB ne moze preko Migration kao u Ordering sto ce biti,
+    vec mora kao CatalogInitialData.cs da se uradi jer Seedujem Postgre NoSQL bazu. Koristim LightWeightDocumentSession for IDocumentSession koji nema Change Tracker automatski pa ako Add/Update u bazu,
+    moram uvek pisati session.Store/Update beofre SaveChangesAsync kako bise promena u bazi sacuvalo.
 
-      Namerno sam izbegao Repository pattern, pa je sva logika unutar Handle metode. 
+      Namerno sam izbegao Repository pattern, pa je sva logika unutar Handle metode, jer Repository pattern i Vertical slice arhitektura ne idu zajedno.
      */
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price) : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
@@ -66,7 +68,8 @@ namespace Catalog.Api.Products.CreateProduct
              tipa i tu upise novu vrstu(novi product). */
 
             // Save new product to DB using Marten. Store je pandan Add u DbContext. 
-            session.Store(product); // baza ce automatski dodeliti novi Guid Id polju.
+            session.Store(product); // Moram manuelno, jer koristim LightWeightDocumentSession koji nema Change Tracker i onda baza nece se azurirati nakon SaveChangesAsync ako ovo ne uradim.
+            // baza ce automatski dodeliti novi Guid Id polju nakon unosa novog podatka u bazu.
             await session.SaveChangesAsync(cancellationToken);
 
             return new CreateProductResult(product.Id); // Moze product.Id jer baza dodelima Guid Id polju automatski

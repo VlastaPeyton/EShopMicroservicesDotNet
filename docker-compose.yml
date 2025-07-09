@@ -5,14 +5,14 @@ services:
       context: src
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
   
-  catalogdb:
-    image: postgres
+  catalogdb:   # Catalog DB Docker server
+    image: postgres # Mora ovamo ime slike PostgreSQL (via Marten as Postgre NoSQL)
   
-  basketdb:
-    image: postgres
+  basketdb:    # Basket DB Docker server 
+    image: postgres # Mora ovako ime slike jer koristim PostgreSQL (via Marten as Postgre NoSQL)
   
   distributedcache:
-    image: redis
+    image: redis   # Mora ovako ime slike za Redis.
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
@@ -27,10 +27,10 @@ services:
       dockerfile: Services/Discount/Discount.gRPC/Dockerfile
   
   orderdb:
-    image: mcr.microsoft.com/mssql/server
+    image: mcr.microsoft.com/mssql/server # Mora ovako ime slike za SQL Server
 
   messagebroker:
-    image: rabbitmq:management 
+    image: rabbitmq:management    # Mora ovako ime slike za RabbitMQ
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi

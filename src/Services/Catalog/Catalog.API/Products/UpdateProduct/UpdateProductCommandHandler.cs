@@ -23,7 +23,7 @@ namespace Catalog.API.Products.UpdateProduct
         {            
             // Prvo ce se odraditi validacija ( koju sam definisao je u BuildingBlocks + dodao u MediatR pipeline).
 
-            var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
+            var product = await session.LoadAsync<Product>(command.Id, cancellationToken); // Nema Change Tracker jer koristim LightWeightDocumentSession
             // Zbog Marten, nema ime tabele, vec LoadAsync<Product> nadje tabelu Product tipa i odatle izvuce jednu vrstu na osnovu command.Id.
             if (product == null)
                 throw new ProductNotFoundException(command.Id); // Definisano u Exceptions folderu
@@ -35,7 +35,7 @@ namespace Catalog.API.Products.UpdateProduct
             product.ImageFile = command.ImageFile;
             product.Price = command.Price;
             /* Zbog NoSQL baze tj Marten , nema ime tabele, ali Update(product) zna na osnovu typeof(product) = Product da mora da azurira tabelu Product tipa. */
-            session.Update(product);
+            session.Update(product); // Moram manuelno ovo uraditi, jer koristim LightWeightDocumentSession koji nema Change Tracking pa samo SaveChangesAsync da bude dovoljan.
             await session.SaveChangesAsync(cancellationToken);
 
             return new UpdateProductResult(true);
