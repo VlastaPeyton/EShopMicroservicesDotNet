@@ -7,19 +7,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Discount.gRPC.Services
 {   
     // Business layer u kom kroz .NET kodiram sve iz discunt.proto 
-    public class DiscountService (DiscountDbContext dbContext, ILogger<DiscountService> logger)
-        : DiscountProtoService.DiscountProtoServiceBase
+    public class DiscountService (DiscountDbContext dbContext, ILogger<DiscountService> logger) : DiscountProtoService.DiscountProtoServiceBase
     {   // DiscountProtoService je definisan u discount.proto file. 
-        /*Moram ovako logger, jer Discount ne referencira BuildingBlocks (pa da kao Catalog i Basket 
-         mogu samo da pozovem logger iz MediatR pipeline LoggingBehaviour). 
-        */
+        //Moram ovako logger, jer Discount ne referencira BuildingBlocks (pa da kao Catalog i Basket  mogu samo da pozovem logger iz MediatR pipeline LoggingBehaviour automatski). 
 
-        /* Moram da override sve metode(Endpoints) iz DiscountProtoService jer Discount je gRCP Server
-        dok Basket je gRPC client. */
+        /*Moram da override sve metode(Endpoints) iz DiscountProtoService jer Discount je gRCP Server dok Basket je gRPC client.
+         
+           GetDiscountRequest, CreateDiscountRequest, UpdateDiscountRequest, DeleteDsicountRequest i CouponModel je definisan u discount.proto 
+           dBContext povezuje ovaj kod sa SQLite. */
+
         public override async Task<CouponModel> GetDiscount (GetDiscountRequest request, ServerCallContext context)
-        {   /* GetDiscountRequest i CouponModel je definisan u discount.proto 
-               dbContext povezuje ovaj kod sa bazom. 
-               Da sam u GetDiscountRequest napisao productName umesto ProductName, opet bi moglo samo ProductName, jer
+        {   /*  Da sam u GetDiscountRequest napisao productName umesto ProductName, opet bi moglo samo ProductName, jer
             .NET pravi iz discount.proto sve u PascalCase.*/
 
             /* Na osnovu ProductName nadje Coupon u bazi. FirstOrDefault vrati null ako nismo nasli kupon, jer samo First 
@@ -28,7 +26,7 @@ namespace Discount.gRPC.Services
 
             // Ako nema popust za zeljeni product
             if (coupon is null) // Isto kao == null, samo sigurnije
-                coupon = new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
+                coupon = new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };// Ne navodim Id, jer ce biti default i u Coupon i u CouponModel posto nas ne zanima Id
             
             logger.LogInformation($"Discount is retrieved for ProductName : {coupon.ProductName}, Amount :{coupon.Amount}");
             
@@ -40,8 +38,7 @@ namespace Discount.gRPC.Services
 
         public override async Task<CouponModel> CreateDiscount (CreateDiscountRequest request, ServerCallContext context)
         {
-            /* CreateDiscountRequest i CouponModel definisani u discount.proto
-              dbContext povezuje ovaj kod sa bazom. 
+            /* 
               Da sam u GetDiscountRequest napisao coupon umesto Coupon, opet bi moglo samo Coupon, jer
             .NET pravi iz discount.proto sve u PascalCase. */
 
@@ -90,8 +87,7 @@ namespace Discount.gRPC.Services
 
         public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
-            /* DeleteDiscountRequest i CouponModel definisani u discount.proto
-              dbContext povezuje ovaj kod sa bazom. 
+            /* 
               Da sam u GetDiscountRequest napisao coupon umesto Coupon, opet bi moglo samo Coupon, jer
             .NET pravi iz discount.proto sve u PascalCase. */
 

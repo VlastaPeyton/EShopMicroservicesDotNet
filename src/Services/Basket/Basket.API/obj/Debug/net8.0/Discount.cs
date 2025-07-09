@@ -29,17 +29,18 @@ namespace Discount.gRPC {
             "GAEgASgFEhMKC1Byb2R1Y3ROYW1lGAIgASgJEhMKC0Rlc2NyaXB0aW9uGAMg",
             "ASgJEg4KBkFtb3VudBgEIAEoBSI+ChVDcmVhdGVEaXNjb3VudFJlcXVlc3QS",
             "JQoGQ291cG9uGAEgASgLMhUuZGlzY291bnQuQ291cG9uTW9kZWwiLAoVRGVs",
-            "ZXRlRGlzY291bnRSZXF1ZXN0EhMKC1Byb2R1Y3ROYW1lGAEgASgJIicKFVVw",
-            "ZGF0ZURpc2NvdW50UmVxdWVzdBIOCgZDb3Vwb24YASABKAkiKQoWRGVsZXRl",
-            "RGlzY291bnRSZXNwb25zZRIPCgdTdWNjZXNzGAEgASgIMsMCChREaXNjb3Vu",
-            "dFByb3RvU2VydmljZRJCCgtHZXREaXNjb3VudBIcLmRpc2NvdW50LkdldERp",
-            "c2NvdW50UmVxdWVzdBoVLmRpc2NvdW50LkNvdXBvbk1vZGVsEkgKDkNyZWF0",
-            "ZURpc2NvdW50Eh8uZGlzY291bnQuQ3JlYXRlRGlzY291bnRSZXF1ZXN0GhUu",
-            "ZGlzY291bnQuQ291cG9uTW9kZWwSSAoOVXBkYXRlRGlzY291bnQSHy5kaXNj",
-            "b3VudC5VcGRhdGVEaXNjb3VudFJlcXVlc3QaFS5kaXNjb3VudC5Db3Vwb25N",
-            "b2RlbBJTCg5EZWxldGVEaXNjb3VudBIfLmRpc2NvdW50LkRlbGV0ZURpc2Nv",
-            "dW50UmVxdWVzdBogLmRpc2NvdW50LkRlbGV0ZURpc2NvdW50UmVzcG9uc2VC",
-            "EKoCDURpc2NvdW50LmdSUENiBnByb3RvMw=="));
+            "ZXRlRGlzY291bnRSZXF1ZXN0EhMKC1Byb2R1Y3ROYW1lGAEgASgJIj4KFVVw",
+            "ZGF0ZURpc2NvdW50UmVxdWVzdBIlCgZDb3Vwb24YASABKAsyFS5kaXNjb3Vu",
+            "dC5Db3Vwb25Nb2RlbCIpChZEZWxldGVEaXNjb3VudFJlc3BvbnNlEg8KB1N1",
+            "Y2Nlc3MYASABKAgywwIKFERpc2NvdW50UHJvdG9TZXJ2aWNlEkIKC0dldERp",
+            "c2NvdW50EhwuZGlzY291bnQuR2V0RGlzY291bnRSZXF1ZXN0GhUuZGlzY291",
+            "bnQuQ291cG9uTW9kZWwSSAoOQ3JlYXRlRGlzY291bnQSHy5kaXNjb3VudC5D",
+            "cmVhdGVEaXNjb3VudFJlcXVlc3QaFS5kaXNjb3VudC5Db3Vwb25Nb2RlbBJI",
+            "Cg5VcGRhdGVEaXNjb3VudBIfLmRpc2NvdW50LlVwZGF0ZURpc2NvdW50UmVx",
+            "dWVzdBoVLmRpc2NvdW50LkNvdXBvbk1vZGVsElMKDkRlbGV0ZURpc2NvdW50",
+            "Eh8uZGlzY291bnQuRGVsZXRlRGlzY291bnRSZXF1ZXN0GiAuZGlzY291bnQu",
+            "RGVsZXRlRGlzY291bnRSZXNwb25zZUIQqgINRGlzY291bnQuZ1JQQ2IGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -252,7 +253,7 @@ namespace Discount.gRPC {
 
   /// <summary>
   ///  Coupon.cs ima Id, ProductName, Description i Amount polja, zato CouponModel mora imati
-  ///takva polja "istog imena" (ili bar isto ime ali sve malim slovima, jer .NET automatski prevodi 
+  ///takva polja "istog imena" ili bar isto ime ali sve malim slovima, jer .NET automatski prevodi 
   ///ime atributa u PascalCase tj productName u ProductName. U Postman body, moram pisati imena 
   ///atributa kao u ovom proto file, i zato cu pisati ovde kao u Coupon.cs da u Postman ne zbunim se. 
   /// </summary>
@@ -980,7 +981,7 @@ namespace Discount.gRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public UpdateDiscountRequest(UpdateDiscountRequest other) : this() {
-      coupon_ = other.coupon_;
+      coupon_ = other.coupon_ != null ? other.coupon_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -992,13 +993,13 @@ namespace Discount.gRPC {
 
     /// <summary>Field number for the "Coupon" field.</summary>
     public const int CouponFieldNumber = 1;
-    private string coupon_ = "";
+    private global::Discount.gRPC.CouponModel coupon_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Coupon {
+    public global::Discount.gRPC.CouponModel Coupon {
       get { return coupon_; }
       set {
-        coupon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        coupon_ = value;
       }
     }
 
@@ -1017,7 +1018,7 @@ namespace Discount.gRPC {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Coupon != other.Coupon) return false;
+      if (!object.Equals(Coupon, other.Coupon)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1025,7 +1026,7 @@ namespace Discount.gRPC {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Coupon.Length != 0) hash ^= Coupon.GetHashCode();
+      if (coupon_ != null) hash ^= Coupon.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1044,9 +1045,9 @@ namespace Discount.gRPC {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Coupon.Length != 0) {
+      if (coupon_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(Coupon);
+        output.WriteMessage(Coupon);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1058,9 +1059,9 @@ namespace Discount.gRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Coupon.Length != 0) {
+      if (coupon_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(Coupon);
+        output.WriteMessage(Coupon);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1072,8 +1073,8 @@ namespace Discount.gRPC {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Coupon.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Coupon);
+      if (coupon_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Coupon);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1087,8 +1088,11 @@ namespace Discount.gRPC {
       if (other == null) {
         return;
       }
-      if (other.Coupon.Length != 0) {
-        Coupon = other.Coupon;
+      if (other.coupon_ != null) {
+        if (coupon_ == null) {
+          Coupon = new global::Discount.gRPC.CouponModel();
+        }
+        Coupon.MergeFrom(other.Coupon);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1106,7 +1110,10 @@ namespace Discount.gRPC {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Coupon = input.ReadString();
+            if (coupon_ == null) {
+              Coupon = new global::Discount.gRPC.CouponModel();
+            }
+            input.ReadMessage(Coupon);
             break;
           }
         }
@@ -1125,7 +1132,10 @@ namespace Discount.gRPC {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Coupon = input.ReadString();
+            if (coupon_ == null) {
+              Coupon = new global::Discount.gRPC.CouponModel();
+            }
+            input.ReadMessage(Coupon);
             break;
           }
         }

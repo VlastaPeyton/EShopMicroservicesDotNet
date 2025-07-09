@@ -1,32 +1,27 @@
-﻿// Carter isntaliram u Catalog, a ne u BB, jer samo ovako Postman oce da raid
-// using je u GlobalUsing
+﻿// Carter isntaliram u Basket, a ne u BB, jer samo ovako Postman/ Client moze da gadja Endpoints
 
 namespace Basket.API.Basket.StoreBasket
-{   /* Client gadja Endpoint saljuci Request object. Endpoint prima taj Request, mapira ga u Command/Query, prosledjuje ga
-     preko MediatR(Sender) u Handler.cs gde  odradjuju se radnje vezane za bazu i Handle vrati Result, a Endpoint ga mapira 
-    u Response object koga salje kao odgovor clientu.*/
+{   // Objasnjeno u CreateProductEndpoint i CreateProductCommandHandler u Product service. Da se ne ponavljam.
     public record StoreBasketRequest(ShoppingCart Cart);
     public record StoreBasketResponse(string UserName);
-    /*Request i Response object mora imati argumente istog imeta i tipa kao Query/Command i Result object u
-    Handler klasi, respektivno, kako bi mapiranje moglo da se izvrsi. */
+    
     public class StoreBasketEndpoint : ICarterModule
-    {   
-        // Mora metoda zbog interface
+    {
         public void AddRoutes(IEndpointRouteBuilder app)
-        {
+        {   // https://localhost:port/basket POST
             app.MapPost("/basket", async (StoreBasketRequest request, ISender sender) =>
-            {
-                /* MapPost jer upisujemo novi ShoppingCart u bazu. 
-                 * Request object postoji, stoga u Postman moramo pisati JSON u body sa poljima iz ShoppingCart klase*/
-
-                var command = request.Adapt<StoreBasketCommand>(); // Adapt je iz Mapster
+            { 
+                var command = request.Adapt<StoreBasketCommand>(); 
                 var result = await sender.Send(command);
                 // Sender zna na osnovu typeof(command)=StoreBasketCommand da pozove StoreBasketCommandHandler
                 var response = result.Adapt<StoreBasketResponse>();
 
                 return Results.Created($"/basket/{response.UserName}", response);
-                /* Mora da se napravi Endpoint za route= "/basket/{response.UserName}", a to je vec napravljeno
-                 u GetBasketEndpoint. */
+                /* Frontendu ce biti poslato response u Response Body, StatusCode=201 u Response Status Line, a https://localhost:port/basket/{UserName} u Response Header.
+                  Moram napraviti Endpoint za https://localhost:port/basket/{UserName} obzirom da ga ovde saljem korisniku, a to je GetBasketEndpoint.
+
+                  Mora Results.Created, jer neam IActionResult kao u Controller pa da moze samo Created. 
+               */
 
             }).WithName("StoreBasket")
               .Produces<StoreBasketResponse>(StatusCodes.Status201Created)

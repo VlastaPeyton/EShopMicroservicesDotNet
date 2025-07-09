@@ -23,7 +23,7 @@ namespace Catalog.API.Products.DeleteProduct
         {
             // Prvo se odradi valdicija ( koju definisao u BuildingBlocks i dodao u MediatR pipeline u Program.cs), pa tek Handle.
 
-            session.Delete<Product>(command.Id);
+            session.Delete<Product>(command.Id); // Moze Delete only by PK tj Id field of Product.cs
             // Zbog NoSQL baze tj Marten, nema ime tabele, ali Delete<Product> nadje tabelu tipa Product i izbrise zeljenu "vrstu" tj document. 
             
             await session.SaveChangesAsync(cancellationToken);

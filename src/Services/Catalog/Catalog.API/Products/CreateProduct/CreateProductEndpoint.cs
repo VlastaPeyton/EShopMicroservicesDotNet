@@ -58,7 +58,7 @@ namespace Catalog.Api.Products.CreateProduct
 
                 return Results.Created($"/products/{response.Id}", response);
                 /* Frontendu ce biti poslato response u Response Body, StatusCode=201 u Response Status Line, a https://localhost:port/product/{id} u Response Header.
-                   Moram napraviti Endpoint za https://localhost:port/product/{id} obzirom da ga ovde saljem korisniku. 
+                   Moram napraviti Endpoint za https://localhost:port/product/{id} obzirom da ga ovde saljem korisniku, a to je GetProductByIdEndpoint.
                     
                    Mora Results.Created, jer neam IActionResult kao u Controller pa da moze samo Created. 
                 */

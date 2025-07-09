@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(); 
 // Add gRPC Service (DiscountService.cs koja je nasledila discount.proto)
 
 // Add DbContext 
@@ -18,7 +18,7 @@ builder.Services.AddDbContext<DiscountDbContext>(config =>
 
 var app = builder.Build();
 
-app.UseMigration();  // AutoMigrate of SQL DB defined in Extensions.cs
+app.UseMigration();  // AutoMigrate of SQL DB defined in Extensions.cs da ne moram da koristim Package-Manager.
 
 app.MapGrpcService<DiscountService>();
 

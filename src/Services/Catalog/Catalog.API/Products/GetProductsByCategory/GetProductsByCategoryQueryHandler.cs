@@ -10,10 +10,10 @@ namespace Catalog.API.Products.GetProductsByCategory
     {  
         public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
         {
-            var products = await session.Query<Product>().Where(p => p.Category.Contains(query.Category)).ToListAsync();
+            var products = await session.Query<Product>().Where(p => p.Category.Contains(query.Category)).ToListAsync(cancellationToken);
             /* Zbog nemanja NoSQL baze, nemamo definisano ime tabele vec baza dodeli neko rangom, ali ga Query<Product> nadje 
             tabelu tipa Product, a onda nadje vrste kojima Category polje sadrzi rec iz query.Category stringa, pa pretvori to u Listu, 
-            jer IEnumerable<Product> je argumet of Result. */
+            jer IEnumerable<Product> je argumet of Result. Mora Where, jer Category field u Product.cs nije PK. */
             return new GetProductsByCategoryResult(products);
         }
     }

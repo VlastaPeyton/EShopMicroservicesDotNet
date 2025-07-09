@@ -1,0 +1,1 @@
+﻿CheckoutBasket i DTO folder pravim tek kad u Ordering service stignem do RabbitMQ dela.

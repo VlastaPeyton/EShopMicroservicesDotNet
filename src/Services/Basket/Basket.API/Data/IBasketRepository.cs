@@ -1,31 +1,22 @@
 ﻿namespace Basket.API.Data
-{
+{   
+    /* Interface uvek radim za Repository, zbog DI, jer u Handler koristicu IBasketRepository, dok u Program.cs registrovacu IBasketRepository kao BasketRepository.
+       Catalog ima skoro sve isto kao Basket, ali nema Repository, pa sam tamo u Handle metodama definisao logiku za pristu bazi. U Basket, tu logiku stavim u BasketRepository
+    metode koje su u IBasketRepoisotry samo potpisane. U Catalog svakom Handler uvozio sam IDocumentSession, ali ovde cu IDocumentSession da uvezem u BasketRepository. 
+    Kao i kod Catalog, koristicu LightWeightDocumentSession koji nema automatski Change Tracker, pa moram pisati session.Store/Update ako zelim da promena ostane u bazi nakon SaveChangesAsync.
+    Pogledaj CreateProductEndpoint i CreateProductCommandHandler sve za IDocumentSession pise kako je to pandan DbContext za NoSQL via Marten i da postoji commit/rollback unutar session + moze LINQ, ali
+    nema Change Tracker, pa mora rucno session.Store/Update before SaveChangesAsync ako zelim da azuriram bazu.
+       
+       Obzirom da koristim i Redis cache, napravicu CachedBasketRepository, koji ce u Program.cs biti registrovan kao Decorator for BasketRepository tj dodace Cache na BasketRepository. Mogo sam da nemam
+    BasketRepository, vec da svu njegovu logiku upisem u CachecBasketRepository ali to nije dobra praksa.  Dodavanjem CachedBasketRepository kao Decorator za BasketRepository, u Handler klasama IBasketRepository predstavljace CachedBasketRepository.
+    */
     public interface IBasketRepository
     {
-        /* U Repository, definisacu po jednu async metodu za svaki Basket feature (GetBasket, StoreBasket, DeleteBasket), zato sam
-         i ostavio sve Handle metode iz Query/CommandHandler klasa da treba da im se definise telo, e pa sad cu to 
-         uraditi, ali ne u Handle metodi, vec u Repository metodama. Ovime se postize Repository pattern koji nema kod Catalog. 
-        U Catalog sam za svaku Handler klasu imao IDocumentSession (IDocumentSession se koristi zbog Marten jer pretvara
-        PostgreSQL u NoSQL), pa modifikovanje/ocitavanje baze radilo u Handle metodi. U Basket, zbog Repository pattern, 
-        to necu tako, vec IDocumentSession se stavi u BasketRepository (koji ce da implementira IBasketRepository), dok
-        Handler klasa imace samo IBasketRepository. Modifikovacu Handle metode da pozivaju repository metode GetBasket, StoreBasket i 
-        DeleteBasket,respektivno, a pozivace ih pomocu BasketRepository, jer ce Handler klase imati IBasketRepository (kroz 
-        Primary Construktro recimo ubacen DI). Da bi Handler klase znale da se IBasketRepository odnosi na BasketRepository, 
-        u Program.cs cu to registrovati. Cao kod Catalog, znamo da u Program.cs registrujem IDocumentSession kao LightWeightDocumentSession
-        
-           Rezime: Catalog i Basket imaju Vertical Slice arhitek, ali Catalog nema Repository pattern, pa mu je upis/citanje baze
-        u Handle metodi, dok Basket ima Repository pattern, pa mu je ta logika u BasketRepository GetBasket, StoreBasket i DeleteBasket 
-        metodama smestena, a Handle metode ce samo da pozivaju GetBasket, StoreBasket i DeleteBasket metode. */
-        
-        // Ove metode su async -> Task<...> jer sam u interface, dok u BasketRepository bice async Task<...>
-
-        // GetBasket metoda za GetBasket feature - string userName, jer GetBasketQuery(string UserName)
-        Task<ShoppingCart> GetBasket (string userName, CancellationToken cancellationToken = default);
-
-        // StoreBasket metoda za StoreBasket feature - ShoppingCart basket, jer StoreBasketCommand(ShoppingCart Cart)
-        Task<ShoppingCart> StoreBasket (ShoppingCart basket,  CancellationToken cancellationToken = default);
-
-        // Deletebasket metoda za DeleteBasket feauture - string userName, jer DeleteBasketCommand(string UserName)
-        Task<bool> DeleteBasket (string userName, CancellationToken cancellationToken = default);
+        // Sve metode bice async Task<T> u BasketRepository, pa ovde im pisem Task<T> 
+        // CancellationToken nema =default jer u Handler ,koji poziva ove metode, ne stoji =default i to je jako bitno jer ako stavim =default, necu moci da prekinem ove metode. Prosledjujem ga svim async metodama.
+        // Metode imaju userName argument, jer ShoppingCart.cs je Basket, a u Program.cs definisano UserName polje kao PK i onda LoadAsync/Delete u GetBasket/DeleteBasket mogu zbog PK
+        Task<ShoppingCart> GetBasket (string userName, CancellationToken cancellationToken);
+        Task<ShoppingCart> StoreBasket (ShoppingCart basket, CancellationToken cancellationToken);
+        Task<bool> DeleteBasket (string userName, CancellationToken cancellationToken);
     }
 }

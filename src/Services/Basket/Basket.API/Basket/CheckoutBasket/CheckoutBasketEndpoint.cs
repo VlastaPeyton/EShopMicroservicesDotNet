@@ -1,8 +1,8 @@
 ﻿
 using Basket.API.DTOs;
-
+// Carter mora se instalira u Catalog.APi inace nece da radi Postman 
 namespace Basket.API.Basket.CheckoutBasket
-{   // Carter mora se instalira u Catalog.APi inace nece da radi Postman 
+{   
     /* Client gadja Endpoint saljuci Request object. Endpoint prima taj Request, mapira ga u Command/Query, prosledjuje ga
      preko MediatR(Sender) u Handler.cs gde  odradjuju se radnje vezane za bazu i Handle vrati Result, a Endpoint ga mapira 
     u Response object koga salje kao odgovor clientu.*/

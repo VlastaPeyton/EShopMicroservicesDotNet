@@ -15,7 +15,7 @@ builder.Services.AddMediatR(config =>
     config.RegisterServicesFromAssemblies(typeof(Program).Assembly);
     //Dodam ValidationBehavior to MediatR pipeline from BuildingBlocks kako bi se iz BB povezao sa CommandValidator klasom u Handler. Zbog ovoga moram liniju 23 da napisem. 
     config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
-    // Dodam LoggingBehavior to MediatR pipeline from BuildingBlocks kako bi se iz BB povezao sa Command/QueryHandler klasom u Handler. 
+    // Dodam LoggingBehavior to MediatR pipeline from BuildingBlocks kako bi se iz BB povezao sa Command/QueryHandler  u Handler. 
     config.AddOpenBehavior(typeof(LoggingBehaviour<,>));
 });
 
@@ -28,7 +28,7 @@ builder.Services.AddMarten(config =>
 {
     config.Connection(builder.Configuration.GetConnectionString("Database")!);
     // ! tells compiler result wont be null, supressing nullable reference type warning
-}).UseLightweightSessions(); // LightWeightDocumentSession je dobar posto nema change tracking koji nam ne treba.
+}).UseLightweightSessions(); // LightWeightDocumentSession je dobar posto nema change tracking i zato mora rucno session.Store/Update 
 
 // Seeding DB only for the first time if DB is empty only for Development, never in Production
 // A development se bira u podesavanjima u VS 

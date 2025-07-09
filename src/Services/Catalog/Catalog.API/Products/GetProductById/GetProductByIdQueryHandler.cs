@@ -10,7 +10,7 @@ namespace Catalog.API.Products.GetProductById
     {  
         public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
-            var product = await session.LoadAsync<Product>(query.Id, cancellationToken);
+            var product = await session.LoadAsync<Product>(query.Id, cancellationToken); // Moze LoadAsync by Id, jer Id field u Product.cs je PK
             /* U bazi nadje tabelu tipa Product i za prosledjeni Id nadje zeljenu vrstu. Zbog NoSQL baze, nema ime tabele,
             vec LoadAsync<Product> nadje zeljenu vrstu u tabeli tipa Product. */
             if (product is null)

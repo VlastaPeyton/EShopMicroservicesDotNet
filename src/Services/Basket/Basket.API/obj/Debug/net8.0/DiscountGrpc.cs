@@ -4,16 +4,14 @@
 // </auto-generated>
 // Original file comments:
 // ovo se napravilo automatksi zbog Dodavanja gRPC Client za Basket.API  preko 
-// Basket.API -> add -> Connected Services -> Service References kartica -> + -> gRPC -> 
-// File select discount.proto iz Discount -> type = Client 
+// Basket.API -> add -> Connected Services -> Service References kartica -> + -> gRPC -> File select discount.proto iz Discount -> type = Client 
 //
 // Protobuf language za definiciju contract(interface) koji ce se koristiti 
 // u service-service (Bakset-Discount) komunikaciji bez obzira u kom su jeziku napisani
 // ti servisi. Za microservices je idealan slucaj da se ovo koristi. Automatski se generise
 // kod koji namesta inter-service komunikaciju. 
 //
-// Nakon definisanja discount.proto, u Service folder pravim DiscountService.cs koja ce ove
-// metode(Endpoints) da implementira kroz .NET. 
+// Nakon definisanja discount.proto, u Service folder pravim DiscountService.cs koja ce ove metode(Endpoints) da implementira kroz .NET. 
 #pragma warning disable 0414, 1591, 8981
 #region Designer generated code
 
@@ -140,7 +138,7 @@ namespace Discount.gRPC {
 
       /// <summary>
       /// Discount Endpoints sa "REST API gRPC Endpoints of Discount" slike 
-      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket sto bilo 
+      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket, tako ovde
       ///imamo Endpoints za Discount service, samo su oni gRPC, a ne API tipa. Discount je gRPC Server
       ///dok Basket je gRPC Client.
       /// </summary>
@@ -156,7 +154,7 @@ namespace Discount.gRPC {
       }
       /// <summary>
       /// Discount Endpoints sa "REST API gRPC Endpoints of Discount" slike 
-      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket sto bilo 
+      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket, tako ovde
       ///imamo Endpoints za Discount service, samo su oni gRPC, a ne API tipa. Discount je gRPC Server
       ///dok Basket je gRPC Client.
       /// </summary>
@@ -170,7 +168,7 @@ namespace Discount.gRPC {
       }
       /// <summary>
       /// Discount Endpoints sa "REST API gRPC Endpoints of Discount" slike 
-      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket sto bilo 
+      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket, tako ovde
       ///imamo Endpoints za Discount service, samo su oni gRPC, a ne API tipa. Discount je gRPC Server
       ///dok Basket je gRPC Client.
       /// </summary>
@@ -186,7 +184,7 @@ namespace Discount.gRPC {
       }
       /// <summary>
       /// Discount Endpoints sa "REST API gRPC Endpoints of Discount" slike 
-      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket sto bilo 
+      ///jer zelim da svi Endpoints budu gRPC tipa. Kao i u Catalog i Basket, tako ovde
       ///imamo Endpoints za Discount service, samo su oni gRPC, a ne API tipa. Discount je gRPC Server
       ///dok Basket je gRPC Client.
       /// </summary>
@@ -198,61 +196,145 @@ namespace Discount.gRPC {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.CouponModel CreateDiscount(global::Discount.gRPC.CreateDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return CreateDiscount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.CouponModel CreateDiscount(global::Discount.gRPC.CreateDiscountRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_CreateDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.CouponModel> CreateDiscountAsync(global::Discount.gRPC.CreateDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return CreateDiscountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.CouponModel> CreateDiscountAsync(global::Discount.gRPC.CreateDiscountRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_CreateDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.CouponModel UpdateDiscount(global::Discount.gRPC.UpdateDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return UpdateDiscount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.CouponModel UpdateDiscount(global::Discount.gRPC.UpdateDiscountRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_UpdateDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.CouponModel> UpdateDiscountAsync(global::Discount.gRPC.UpdateDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return UpdateDiscountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint 
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.CouponModel> UpdateDiscountAsync(global::Discount.gRPC.UpdateDiscountRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UpdateDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.DeleteDiscountResponse DeleteDiscount(global::Discount.gRPC.DeleteDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return DeleteDiscount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Discount.gRPC.DeleteDiscountResponse DeleteDiscount(global::Discount.gRPC.DeleteDiscountRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_DeleteDiscount, null, options, request);
       }
+      /// <summary>
+      /// Endpoint
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.DeleteDiscountResponse> DeleteDiscountAsync(global::Discount.gRPC.DeleteDiscountRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return DeleteDiscountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// Endpoint
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Discount.gRPC.DeleteDiscountResponse> DeleteDiscountAsync(global::Discount.gRPC.DeleteDiscountRequest request, grpc::CallOptions options)
       {

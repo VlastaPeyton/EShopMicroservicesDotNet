@@ -1,7 +1,9 @@
 ﻿namespace Catalog.Api.Models
 {   
     // Catalog service ima Vertical slice arhitekturu, pa svi layers su unutar istog projekta under Catalog folder. Da je Clean architecture, Models folder bi bio Domain layer posebno, a ovde je unutar Catalog foldera Domain layer.
-    public class Product // Product entity  tj kolone tabele u bazi
+    // Catalog koristi NoSQL bazu (Postgres via Marten,a Marten je pandan EF Core). U NoSQL, Tabela se zove Collection, Row se zove Document, Column se zove Field.
+    // NoSQL DB nema PK-FK, ali ima PK koji je Id autoamtski ako to polje postoji, ako ne postoji, moram u Program.cs da navedem koje zelim da bude PK.
+    public class Product // Ovo nije Entity jer koristim Marten zbog Postgre NoSQL, a ne EF Core zbog SQL baze. ALi svakako predstavlja "tabelu" u bazi tipa Product
     {
         public Guid Id { get; set; } // Zbog imena, automatski ce baza znati da je ovo PK. Guid je najbolji type za Id. Ne sme imati default value.
         public string Name { get; set; } = default!; 

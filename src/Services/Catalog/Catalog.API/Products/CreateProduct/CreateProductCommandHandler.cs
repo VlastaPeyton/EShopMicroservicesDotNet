@@ -17,7 +17,9 @@ namespace Catalog.Api.Products.CreateProduct
     vec mora kao CatalogInitialData.cs da se uradi jer Seedujem Postgre NoSQL bazu. Koristim LightWeightDocumentSession for IDocumentSession koji nema Change Tracker automatski pa ako Add/Update u bazu,
     moram uvek pisati session.Store/Update beofre SaveChangesAsync kako bise promena u bazi sacuvalo.
 
-      Namerno sam izbegao Repository pattern, pa je sva logika unutar Handle metode, jer Repository pattern i Vertical slice arhitektura ne idu zajedno.
+      Namerno sam izbegao Repository pattern, pa je sva logika za pristup bazi unutar Handle metode, jer Repository pattern i Vertical slice arhitektura ne idu zajedno.
+      
+      CancellationToken nikad client ne salje, vec se on automatski aktivira ako dodje do greske neke. Prosledjujem ga svim async metodama.
      */
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price) : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);

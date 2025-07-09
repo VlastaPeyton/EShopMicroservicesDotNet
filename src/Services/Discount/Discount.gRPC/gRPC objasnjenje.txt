@@ -1,0 +1,2 @@
+﻿Ovo je ASPNET Core gRPC Service tip projekta u VS kako bi se Protos folderi generisali automatski i ostale stvari.
+Koristim SQLite jer je ovo malena baza i ne treba nam veca i ona se ne pravi vec u appsettings kad namestimo njeno ime i kad se migracija uradi, onda se i ona napravi.

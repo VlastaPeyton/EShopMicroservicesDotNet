@@ -6,7 +6,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
     # ConnectionStrings__Database znaci da override ConnectionStrings:Database from appsettings.json koji je connection string za Catalog.API in localhost with CatalogDB in Docker, jer catalogdb je uvek in Docker meni.
-    # Mora 5432 jer to je Postgres port in  Postgres container 
+    # Mora 5432 jer to je Postgres port in  Postgres container koji DIREKTNO povezan sa catalog container jer su unutar istog docker-compose
     depends_on:
       - catalogdb
     ports:
@@ -91,14 +91,12 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
-      # Mora 5432 jer to je Postgres port in Postgres Docker container 
-      - ConnectionStrings__Redis=distributedcache:6379   # Mora 6379 jer to je Redis port in Redis container
-      # ConnectionStrings_Database objasnjenje isto kao u Catalog.API. 5432 je port in Postgres Docker (basketdb) jer svaki docker je container(PC) za sebe pa moze isti port i ovde kao catalogdb
-      # ConnectionStrigns__Redis znaci da override ConnectionStrings:Redis iz appsettings za Basket.API jer Redis imam uvek u Docker i njegov port je 6379
+      # Mora 5432 jer to je Postgres port in Postgres Docker container koji DIREKTNO povezan sa basket container jer su unutar istog docker-compose
+      - ConnectionStrings__Redis=distributedcache:6379   # Mora 6379 jer to je Redis port in Redis container koji direktno povezan sa basket container jer su unutar istog docker-compose
+      # ConnectionStrigns__Redis znaci da override ConnectionStrings:Redis iz appsettings za Basket.API jer Redis uvek mi je u Docker i njegov port je 6379
       - ConnectionStrings__DiscountUrl=https://discount.grpc:8081 
       # Moram da override GrpcSettings:DiscountURL koje sam dodao jer Basket je gRPC Client
-      # jer discount.grpc je Discount container name iz docker-compose.yml. 8081 jer Catalog.APi/Basket.API i Discount.gRPC containers 
-      # koriste taj port jer svaki container je PC za sebe.
+      # jer discount.grpc je Discount container name iz docker-compose.yml. 8081 jer Catalog.APi/Basket.API i Discount.gRPC containers koriste taj internal port a Discount.gRPC service sam stavio takodje u container sa sve njegovim SQLite
       - MessageBroker__Host=amqp://ecommerce-mq:5672 # iznad pise pa moraa ovako da se override iz appsettings
       - MessageBroker__UserName=guest # iznad pise pa moraa ovako da se override iz appsettings za basket
       - MessageBroker__Password=guest # iznad pise pa moraa ovako da se override iz appsettings za basket
@@ -126,8 +124,7 @@ services:
     ports:
       - "6002:8080"
       - "6062:8081"
-      # Iz Postman, gadjam 6062 (jer uvek https radim) of Discount.gRPC docker container koji preko 8081(https) sa ostalim containers 
-      # jer svaki container je PC za sebe i onda 8081 moze u svakom container (Catalog.API, Basket.API i Discout.gRPC)
+      # Objasnjenje lezi u Catalog i Basket iznad
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
