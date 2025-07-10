@@ -11,12 +11,12 @@ namespace Ordering.Domain.Value_Objects
         public string Country { get; } = default!;
         public string State { get; } = default!;
         public string ZipCode { get; } = default!;
-        
-        /* Polja nemaju set, tj imaju internal set, pa moram unutar ove klase u konstruktoru
-        ili u static metodu da setujem.
+
+        /* Polja nemaju set, tj imaju internal set, pa moram unutar ove klase u konstruktoru ili u static metodu da setujem polja. 
           Zbog Rich-domain, koristim static "Of" metodu jer ovo je Value Object.*/
-        
-        private Address(string firstName, string lastName, string emailAddress, 
+
+        // Polja nemaju explicitni "private set" => ne moze new Address {....} u Of metodi, vec mora private konstruktor koji cu koristiti u Of metodi
+        private Address(string firstName, string lastName, string emailAddress,
                         string addressLine, string country, string state, string zipCode)
         {
             FirstName = firstName;
@@ -27,16 +27,19 @@ namespace Ordering.Domain.Value_Objects
             State = state;
             ZipCode = zipCode;
         }
-        // Construktor private zbog Of metode
 
-        public static Address Of (string firstName, string lastName, string emailAddress,
-                        string addressLine, string country, string state, string zipCode)
+        public static Address Of (string firstName, string lastName, string emailAddress,string addressLine, string country, string state, string zipCode)
         {
-            /*Validacija, ali ne moze ona iz BuldingBlocks (MediatR FluentValidation)  jer ovo je
+            /*Validacija mora ovde jer je ovo custom type, ali ne moze ona iz BuldingBlocks (MediatR FluentValidation)  jer ovo je
              Domain layer koji ga ne referncira plus ovo nije Endpoint. */
 
             ArgumentException.ThrowIfNullOrEmpty(emailAddress);
             ArgumentException.ThrowIfNullOrEmpty(addressLine);
+            ArgumentException.ThrowIfNullOrEmpty(country);
+            ArgumentException.ThrowIfNullOrEmpty(state);
+            ArgumentException.ThrowIfNullOrEmpty(zipCode);
+            ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
 
             return new Address(firstName, lastName, emailAddress, addressLine, country, state, zipCode);
 

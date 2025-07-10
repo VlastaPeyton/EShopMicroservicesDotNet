@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{885919D8-19B0-4518-A254-801594CB5017}"
+	ProjectSection(SolutionItems) = preProject
+		Baze i Redis.txt = Baze i Redis.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{2048F6C2-B5D9-418C-BED9-59CFC0C27F4D}"
 EndProject
@@ -24,6 +27,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.gRPC", "src\Services\Discount\Discount.gRPC\Discount.gRPC.csproj", "{A30045DD-4A99-4685-ADC8-AB8655DF3870}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{AD5CA6EE-2776-4183-B17C-1AC8EF726BA0}"
+	ProjectSection(SolutionItems) = preProject
+		Clean architecture.txt = Clean architecture.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{E4013D37-6A2A-477C-892B-B8A103C875E4}"
 EndProject

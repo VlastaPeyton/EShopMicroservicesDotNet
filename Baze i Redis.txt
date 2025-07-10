@@ -1,0 +1,3 @@
+Svi servisi koriste svoje baze. Sve baze, osim SQLite (Discount servis) su Docker image jer to olaksava poso da ne moram da ih downloadujem na komp.
+Zbog toga, kada kreiram servis, zapakujem ga u isti docker-compose sa sve docker bazom. I to onda vrlo elegantno radi bez da bilo sta rucno namestam po kompu. 
+Basket koristi Redis, isto vazi i za njega da je iz Docker image.

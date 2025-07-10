@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Discount.gRPC.Data
 {   
     // Data Access layer for DB operations
+
+    // Ne koristim Repository pattern, jer nema potrebe posto Discount je lagani service, pa moze sav pristup bazi u DiscountService.cs da stoji
+
+    // DbContext sluzi obicno samo za definisanje imena tabela i OnModelCreating 
     public class DiscountDbContext : DbContext 
     {  /* DbContext se koristi jer Discount koristi SQL (SQLite) bazu, a to je 
         pandan IDocumentSession za Marten NoSQL bazu, samo sto za razliku od 

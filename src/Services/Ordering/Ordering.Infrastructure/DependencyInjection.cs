@@ -9,11 +9,10 @@ using Ordering.Infrastructure.Data.Interceptors;
 // Ova 2 su iz BB jer ga Infrastructure referencira. 
 namespace Ordering.Infrastructure
 {
-    /*Ovo sto pisem ovde, bih morao pisati u Program.cs, ali da tamo ne gomilam kod 
-   jer svaki layer ima  i zato pisem u ovoj klasi extension method za IServiceCollection 
-   jer svaki "builder.Services.Add.." u Program.cs je za IServiceCollection. */
+    /*Ovo sto pisem ovde, bih morao pisati u Program.cs, ali da tamo ne gomilam kod za svaki layer, zato pisem u ovoj klasi extension method za IServiceCollection 
+     jer svaki "builder.Services.Add.." u Program.cs je IServiceCollection. */
     public static class DependencyInjection
-    {
+    {   // Extension method (koji je uvek static) za Infrastructure layer
         public static IServiceCollection AddInfrastructureServices
             (this IServiceCollection services, IConfiguration configuration)
         { // Extension method for Infrastructure layer

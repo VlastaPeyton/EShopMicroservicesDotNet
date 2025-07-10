@@ -1,0 +1,24 @@
+Ordering service koristi Clean arhitekturu, sto znaci da je svaki layer VS projekat(folder) za sebe. 
+Do sada, u Catalog, Basket sam koristio Vertical slice gde svi layeri stoje u istom projektu(folderu) tipa ASP.NET Core Empty.
+
+Domain layer: Class library tip projekta, jer ne komunicira sa clientom. 
+			  DDD, Tabele (Entity jer korisitm SQL DB), Rich-domain model, Value Objects, Aggregate, Strong-typed Id, Domain Event, Integration Event
+
+Infrastructure layer: Class library tip projekta, jer ne komunicira sa clientom.
+					  DB connection (Repository, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR
+
+Applicaiton layer: Class library tip projekta, jer ne komunicira sa clientom.
+				   CQRS, FluentValidation i Mediator (FV i MediatR u BuildingBlocks definsiani)
+				   DomainEventHandler, IntegrationEventHandler
+
+API layer: ASP.NET Core Empty tip projekta, jer komunicira sa clientom i samo on ima Program.cs 
+		   Minimal API Endpoint 
+
+Integration Event je kada Basket trigeruje RabbitMQ koji ce da trigeruje Ordering da je Integration event iz Basket poslat tj da je Basket checkout izvrsen. 
+
+U svakom layer, osim Domain, kreiram DependencyInjection.cs u koju cu smestiti ono sto bih za taj layer napisao u Program.cs, pa cu tu klasu da uvezem u Program.cs. Ovime
+postizem da Program.cs ne bude ogroman i nepregledan sto je u skladu sa Clean arhitekturom. DependencyInjection.cs je extension metod za IServiceCollection, jer IServiceCollection
+registruje sve stvari pomocu "builder.Services..."u Program.cs
+
+Svaki od patterna, spomenutih u svakom layeru iznad, bice objasnjen u odgovarajucem layeru.
+

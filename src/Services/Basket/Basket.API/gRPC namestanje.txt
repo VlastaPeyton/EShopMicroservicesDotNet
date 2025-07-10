@@ -4,4 +4,17 @@ Basket.API -> add -> Connected Services (koristimo for creating Client for gRPC 
 Sada se unutar Basket.API napravio Protos folder sa discount.proto file isti kao onaj koji vec postoji u Discount.gRPC
 U appsettings.json i stavim port 5052 jer je to localhost port za Discount https.
 
-Solution file -> Properties -> selektujem kao na slici, jer zelim i Basket i Discount istovremeno da se pokrenu, jer moraju biti pokrenuta oba ta projekta kako bi mogli da komunicariju servisi (opet pokrenemo solution i 2 CMD (za Basket i Discount po jedan) se otvore) jer ocu da teestiram Discount and Basket ISTOVREMENO, ali prvo Docker desktop running mora sa svim dosadasnjim containers i kliknem DOcker-Compose zeleno u VS. 
+Solution file -> Properties -> selektujem kao na slici, jer zelim i Basket i Discount istovremeno da se pokrenu, jer moraju biti pokrenuta oba ta projekta kako bi mogli da komunicariju servisi (opet pokrenemo solution i 2 CMD (za Basket i Discount po jedan) se otvore) jer ocu da teestiram Discount and Basket ISTOVREMENO, ali prvo Docker desktop running mora sa svim dosadasnjim containers i kliknem DOcker-Compose zeleno u VS.
+
+U Program.cs dodam : builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(config =>
+{
+    config.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    // Ovo je za TLS da ne kuka 
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    };
+    return handler;
+});

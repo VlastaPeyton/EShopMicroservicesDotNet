@@ -1,0 +1,9 @@
+﻿DDD => Aggregate, Entity, IAggregate, IDomainEvent, IEntity, Value Objects. 
+Tabele (Entity jer korisitm SQL DB)  => Models folder koji predstavlja tabele u bazi
+Strong-typed Id => Za svaku klasu iz Models pravim njoj svojstvenu Id kao custom klasu . U Value Objects folder kao i Payment i Address koji su zaista value object
+Domain Events => Events folder
+Rich-domain model => Models klase imaju static Create metod umesto konstruktora. Value Object klase imaju static Of metodu umesto konstruktora.
+
+Value Objects imaju validaciju u svojoj klasi, jer su custom types, jer ne moze MediatR FluentValidaiton obzirom da se on koristi samo za Endpoint. 
+
+Aggregate Root is main Entity in Aggregate, through wich other objects communicate with Aggregate. Obicno je Aggregate Root i Aggregate ista klasa.

@@ -10,14 +10,11 @@ namespace Ordering.Domain.Value_Objects
         public string CCV { get; } = default!;
         public int PaymentMethod { get; } = default!;
 
-        /* Polja nemaju set, tj imaju internal set, pa moram unutar ove klase u konstruktoru
-        ili u static metodu da setujem.
-          Zbog Rich-domain, koristim static "Of" metodu jer ovo je Value Object.*/
+        /* Polja nemaju set, tj imaju private set, pa moram unutar ove klase u konstruktoru ili u static metodu da setujem.
+          Zbog Rich-domain, koristim static "Of" metodu za Value Object umensto konstruktora.*/
+        private Payment() { } // Ako ne stavim ovo migracije nece hteti, jer konstruktor  bez parametra dozvoljava EF core da kreira instances of the Payment class during mapping
 
-        private Payment() { } // AKo ne stavim ovo migracije nece hteti
-        // Jer ktor bez parametra dozvoljava EF core da kreira instances of the Payment class during mapping
-
-        // Mora zbog Of metode i zato je private 
+        // Polja nemaju explicitni "private set" => ne moze new Address {....} u Of metodi, vec mora private konstruktor koji cu koristiti u Of metodi
         private Payment(string cardName, string cardNumber, string expiration, string ccv, int paymentMethod)
         {
             CardName = cardName;
@@ -29,8 +26,7 @@ namespace Ordering.Domain.Value_Objects
 
         public static Payment Of(string cardName, string cardNumber, string expiration, string ccv, int paymentMethod)
         {
-            /*Validacija, ali ne moze ona iz BuldingBlocks (MediatR FluentValidation)  jer ovo je
-             Domain layer koji ga ne referncira plus ovo nije Endpoint. */
+            ///Validacija se radi ovde jer Value Object tj custom type, ali ne moze ona iz BuldingBlocks (MediatR FluentValidation)  jer ovo je Domain layer koji ga ne referncira plus ovo nije Endpoint. 
 
             ArgumentException.ThrowIfNullOrWhiteSpace(cardNumber);
             ArgumentException.ThrowIfNullOrWhiteSpace(cardName);

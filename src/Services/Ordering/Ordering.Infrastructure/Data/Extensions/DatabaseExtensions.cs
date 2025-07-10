@@ -7,7 +7,7 @@ namespace Ordering.Infrastructure.Data.Extensions
 {
     // Logika za EF migracije
     public static class DatabaseExtensions
-    {   // Extension method jer ocu migraciju automatksi prilikom app startup
+    {   // Extension method (uvek mora static) jer ocu migraciju automatksi prilikom app startup
         public static async Task InitializeDatabaseAsync(this WebApplication app)
         {
             // Auto migrate database 

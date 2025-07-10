@@ -7,11 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FeatureManagement; // From BB jer Application ga referencira
 
 namespace Ordering.Application
-{   /*Ovo sto pisem ovde, bih morao pisati u Program.cs, ali da tamo ne gomilam kod 
-    jer svaki layer ima  i zato pisem u ovoj klasi extension method za IServiceCollection 
-    jer svaki "builder.Services.Add.." u Program.cs je za IServiceCollection. */
+{   /*Ovo sto pisem ovde, bih morao pisati u Program.cs, ali da tamo ne gomilam kod za svaki layer, zato pisem u ovoj klasi extension method za IServiceCollection 
+    jer svaki "builder.Services.Add.." u Program.cs je IServiceCollection. */
     public static class DependencyInjection
-    {   // Extension method for Application layer
+    {   // Extension method (koji uvek mora biti static) for Application layer
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             // Add services to the container 

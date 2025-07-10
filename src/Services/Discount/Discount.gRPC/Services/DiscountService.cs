@@ -22,7 +22,8 @@ namespace Discount.gRPC.Services
 
             /* Na osnovu ProductName nadje Coupon u bazi. FirstOrDefault vrati null ako nismo nasli kupon, jer samo First 
             ce da vrati error ako nismo nasli kupon. */
-            var coupon = await dbContext.Coupons.FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+            var coupon = await dbContext.Coupons.AsNoTracking().FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+            // Ne treba mi ChangeTracker, jer necu Azurirati/Brisati ovaj entity object, a tracker dodaje memory i usporava i zato mi ne treba.
 
             // Ako nema popust za zeljeni product
             if (coupon is null) // Isto kao == null, samo sigurnije
@@ -92,13 +93,14 @@ namespace Discount.gRPC.Services
             .NET pravi iz discount.proto sve u PascalCase. */
 
             // Na osnovu ProductName nadje Coupon u bazi
-            var coupon = await dbContext.Coupons.FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+            var coupon = await dbContext.Coupons.FirstOrDefaultAsync(x => x.ProductName == request.ProductName); 
+            // Treba mi Change Tracker i zato ne pisem AsNoTracking. Jer Remove moze samo za tracked entity object.
 
             // Ako ne postoji kupon koji zelim obrisati
             if (coupon is null)
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request object"));
 
-            // Brisem kupon ako postoji
+            // Brisem kupon ako postoji jer EF Core koristi Change Tracker 
             dbContext.Coupons.Remove(coupon);
             await dbContext.SaveChangesAsync();
 

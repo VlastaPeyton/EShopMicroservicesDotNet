@@ -55,7 +55,7 @@ builder.Services.AddScoped<IBasketRepository>(provider =>
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 // Ovo je Decorator pattern koji omoguacava da CachedBasketRepository koristi BacketRepository + da doda nesto svoje (Redis cache). Dodavanjem CachedBasketRepository kao Decorator za BasketRepository, u Handler klasama IBasketRepository predstavljace CachedBasketRepository.
 
-// Add IDistributedCache from StackExchangeRedis library kako bih povezao Redis (in Docker) with this code.
+// Add IDistributedCache (koristim ga u CachedBasketRepository) from StackExchangeRedis library kako bih povezao Redis (in Docker) with this code.
 builder.Services.AddStackExchangeRedisCache(config =>
 {   // Citanje ConnectionString za Redis iz appsettings
     config.Configuration = builder.Configuration.GetConnectionString("Redis");

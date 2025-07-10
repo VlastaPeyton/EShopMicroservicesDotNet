@@ -4,30 +4,28 @@ using Ordering.Domain.Abstractions;
 using Ordering.Domain.Value_Objects;
 
 namespace Ordering.Domain.Models
-{
-    public class Customer : Entity<CustomerId> // Customers tabela u bazi jer nasledio Entity
+{   
+    // Customers tabela u bazi
+    public class Customer : Entity<CustomerId> 
     {
-        // Nasledio Id(CustomerId tipa), CreatedAt, CreatedBy, ModifiedOn, ModifiedBy iz Entity
-
+        // Nasledio Id(CustomerId tipa jer radim Strongly-typed Id), CreatedAt, CreatedBy, ModifiedOn, ModifiedBy iz Entity
         public string Name { get; private set; } = default!;
         public string Email { get; private set; } = default!;
-        
-        /* Polja su private set, moram ih inicijalizovati unutar klase  ili konstruktorom
-        ili static metodom kao kod Order.
-           Zbog Rich-domain, koristim static metodu "Create" */
+        // Ova 2 polja su private set, pa ih moram setovati unutar klase konstruktorom ili static metodom van klase, dok nasledjeno Id polje ne moram, jer ono je public set u Entity.cs deifnisano.
+        // Zbog private set, moze new Customer = {...} 
 
-        public static Customer Create (CustomerId customerId, string name, string email)
+        // Zbog Rich-domain dodajem Create static metodu umesto konstruktora kojom cu van klase moci da setujem Name, Email i Id polja.
+        public static Customer Create(CustomerId id, string name, string email)
         {
             /* Validacija za Name i Email. Ne mogu koristiti BuildingBlocks za FluentValidaiton in MediatR
-             jer ovo nije Endpoint vec Domain layer koji ne referencira BB a i da referencira ne bi imalo smisla
-            jer niej Endpoint.*/
+             jer ovo nije Endpoint vec Domain layer koji ne referencira BB, a i da referencira ne bi imalo smisla jer nije Endpoint.*/
 
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentException.ThrowIfNullOrWhiteSpace(email);
 
             var customer = new Customer
             {
-                Id = customerId, // Nasledio Id iz Entity.cs tipa CustomerId
+                Id = id, // Mozda i ne moram proslediti id, moze samo Id = CustomerId.Of(Guid.NewGuid())
                 Name = name,
                 Email = email
             };
