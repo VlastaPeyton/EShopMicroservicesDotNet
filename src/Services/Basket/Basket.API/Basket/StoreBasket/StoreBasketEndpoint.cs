@@ -1,8 +1,10 @@
 ﻿// Carter isntaliram u Basket, a ne u BB, jer samo ovako Postman/ Client moze da gadja Endpoints
 
+using Basket.API.DTOs;
+
 namespace Basket.API.Basket.StoreBasket
 {   // Objasnjeno u CreateProductEndpoint i CreateProductCommandHandler u Product service. Da se ne ponavljam.
-    public record StoreBasketRequest(ShoppingCart Cart);
+    public record StoreBasketRequest(StoreShoppingCartDTO Cart);
     public record StoreBasketResponse(string UserName);
     
     public class StoreBasketEndpoint : ICarterModule

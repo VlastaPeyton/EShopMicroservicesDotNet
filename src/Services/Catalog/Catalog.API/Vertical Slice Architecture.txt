@@ -4,3 +4,6 @@ Models folder je Domain layer.
 CQRS pattern ide odlicno uz Vertical slice. 
 Products folder predstavlja Features folder koji je radjen u CQRS maniru gde svaki subfolder predstavlja Command/Query sa Handler i Endpoint.
 Izbegavam Repository pattern kod Vertical slice jer je redundantno.
+
+Endpoint.cs sadrzi Endpoint definition + Request i Response object
+Handler.cs sadrzi Validator + Handler + Command i Result object

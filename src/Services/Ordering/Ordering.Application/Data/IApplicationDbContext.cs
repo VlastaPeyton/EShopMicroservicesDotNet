@@ -6,18 +6,12 @@ namespace Ordering.Application.Data
 {   
     public interface IApplicationDbContext
     {
-        /* ApplicationDbContext je definisan u Ordering.Infrastructure layeru, a kao kod Basket trebamo IApplicationDbContext 
-         tj interface repository pattern. IApplicationDbContext definisan u Application layer zbog Clean architecture.
-
-          DbContext se koristi, jer Ordering koristi SQL Server (SQL) bazu, a to je pandan IDocumentSession za Marten NoSQL bazu,
-        samo sto za razliku od IDocumentSession, ovde mogu definisati ime tabele. Kao IDocumentSession, DbContext
-        ima takodje commit i rollback u SaveChangesAsync built-in metodi.
-
-          Kod Basket, imao sam Repository pattern takodje, ali sam imao NoSQL bazi (IDocumentSessionn umesto DbContext), stoga
-        u Program.cs nisam imao AddDbContext<BasketDbContext>. Basket ima Vertical slice architecture, pa sam IBasketRepository i
-        BasketRepository stavio u isti layer (API layer), dok ovde to nije slucaj.
+        /* IApplicationDbContext se stavlja u Applicaiton layer. 
+          DbContext se koristi, jer Ordering koristi SQL Server (SQL) bazu, a to je pandan IDocumentSession za Marten NoSQL Postgre bazu,
+        samo sto za razliku od IDocumentSession, ovde mogu definisati ime tabele. Kao IDocumentSession, DbContext ima takodje commit i rollback u SaveChangesAsync built-in metodi. 
         */
 
+        // Nisam stavio {get;set;}, jer u Applciation DbContext ocu da ovo bute expression-bodied. Eto, malo za promenu. 
         DbSet<Customer> Customers { get; }
         DbSet<Order> Orders { get; }
         DbSet<Product> Products { get; }

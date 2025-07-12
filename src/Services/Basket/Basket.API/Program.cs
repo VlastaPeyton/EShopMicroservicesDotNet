@@ -78,7 +78,7 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 
 // Async communication between Basket and Ordering microservices
 builder.Services.AddMessageBroker(builder.Configuration);
-// Basket je Publisher i zato AddMessageBroker se poziva samo sa builder.Configuration jer tad assembly = null 
+// Basket je Publisher i zato AddMessageBroker se poziva samo sa builder.Configuration jer tad assembly = null , dok za Ordering je drugacije.
 
 // Add custom exception handler definded in Bulding Blocks to handle all unhandled exceptions accross Basket service, a svaki je unhandled jer nigde nemamo catch u funkcijama.
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();

@@ -1,0 +1,17 @@
+﻿ DB connection (Repository ali ne koristim ga, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR, Interceptor.
+ Pravim tabele od Models klasa iz Domain. Neke klase koriste Value Objects (custom types) za property, pa ako zelim da napravim kolone od internih polja tog property, moram u OnModelCreating
+ da to rucno uradim. 
+
+ References Domain layer and Application. Domain mora da referencira jer EF Core koristi tabele definisane u Domain i sve ostalo. 
+ Applicaiton mora da referencira jer IApplicationDBContext cu tamo napisati, dok ovde bice ApplicationDbContext, jer zbog dobre prakse 
+ DI mora preko interface biti kao sto znam, pa cu u DependencyInjection.cs da registrujem IApplicationDbContext kao ApplicationDbContext - ovu foru sam imao
+ u Basket za IBasketRepository i BasketRepository, samo sto tamo sam imao Vertical slice, pa nisam imao svaki layer kao projekat(folder) za sebe.
+
+ OnModelCreating nece imati PK-FK relacije, Seeding, i ostale stvari za svaku tabelu, obzirom da imam 4 tabele, sve to cu staviti u Configuration.cs klase za svaku tabelu
+ a pomocu ApplyConfigurationsFromAssembly ce OnModelCreating znaci za koju tabelu Configuration.cs da pokrene. 
+
+ AuditableEntityInterceptor ce da primeti promene Owned entities (Shipping/BillingAddress, Payment, OrderStatus, OrderName ), osim OrderItems u Order tabeli. Nisam znao kako da napravim za OrderItems i zato mi to fali kod.
+ 
+ DispatchDomainEventsInterceptor koristi MediatR jer se Mediator koristi za Publish/Subscribe Ordering service na sopstvene (Domain) events. Ali MediatR registrujem u Application layer zato sto tako treba u Clean architecture.
+
+ References BuildingBlocks jer koristi MediatR.

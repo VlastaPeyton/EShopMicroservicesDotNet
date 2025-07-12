@@ -5,19 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Ordering.Infrastructure.Data.Extensions
 {
-    // Logika za EF migracije
+    // Obzirom da 4 tabele moram da seedujem i napravim initial data, to je mnogo koda za OnModelCreating, pa zato ovde stavljam Seeding logiku, dok intial data stavim u InitialData.cs
+
+    // Kod Discount isto sam imao Auto Migration, jer ocu auto migration prilikom app startup jer tad ne zelim Package Manager Console da otvorim da kucam Add-Migration Update-Database
     public static class DatabaseExtensions
-    {   // Extension method (uvek mora static) jer ocu migraciju automatksi prilikom app startup
-        public static async Task InitializeDatabaseAsync(this WebApplication app)
+    {   // Extension method (uvek mora static) 
+        public static async Task InitializeDatabaseAsync(this WebApplication app) 
         {
             // Auto migrate database 
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await context.Database.MigrateAsync();//.GetAwaiter().GetResult(); 
+            await context.Database.MigrateAsync();
             // context.Database = OrderingDb 
-            // MigrateAsync().GetAwaiter().GetResult() ako ocemo da od MigrateAsync() napravimo sync ali msm da ne treba nam 
+            // MigrateAsync().GetAwaiter().GetResult() ako ocemo da od MigrateAsync() napravimo sync ali ne treba nam 
 
-            // Seeding databasem 
+            // Seeding database 
             await SeedAsync(context);
         }
 
@@ -34,7 +36,7 @@ namespace Ordering.Infrastructure.Data.Extensions
             if (!await context.Customers.AnyAsync()) // AnyAsync je built-in
             {
                 await context.Customers.AddRangeAsync(InitialData.CustomersInitialData); // AddRangeAsync je built-in
-                await context.SaveChangesAsync(); // Sadrzi commit/rollback u sebi
+                await context.SaveChangesAsync(); 
             }
         }
 
@@ -44,7 +46,7 @@ namespace Ordering.Infrastructure.Data.Extensions
             if (!await context.Products.AnyAsync())
             {
                 await context.Products.AddRangeAsync(InitialData.ProductsInitialData);
-                await context.SaveChangesAsync(); // Sadrzi commit/rollback u sebi
+                await context.SaveChangesAsync(); 
             }
         }
 
@@ -54,7 +56,7 @@ namespace Ordering.Infrastructure.Data.Extensions
             if (!await context.Products.AnyAsync())
             {
                 await context.Orders.AddRangeAsync(InitialData.OrderWithOrderItemsInitialData);
-                await context.SaveChangesAsync(); // Sadrzi commit/rollback u sebi
+                await context.SaveChangesAsync(); 
             }
         }
     }

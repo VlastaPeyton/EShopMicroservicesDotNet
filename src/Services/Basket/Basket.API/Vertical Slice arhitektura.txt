@@ -2,6 +2,9 @@
 videcemo kako svaki layer ima svoj folder(projekat). 
 Models folder je Domain layer.
 CQRS pattern ide odlicno uz Vertical slice. 
-Bassket folder predstavlja Features folder koji je radjen u CQRS maniru gde svaki subfolder predstavlja Command/Query sa Handler i Endpoint.
-Iako kod Vertical slice izbegavam Repository pattern, ovde cu ga koristiti. 
+Basket folder predstavlja Features folder koji je radjen u CQRS maniru gde svaki subfolder predstavlja Command/Query sa Handler i Endpoint.
+Iako kod Vertical slice izbegavam Repository pattern, ali ovde cu ga koristiti. 
 Zbog Repository, IDocumentSession DI uradim u BasketRepository, a ne u Handler.
+
+Endpoint.cs sadrzi Endpoint definition + Request i Response object
+Handler.cs sadrzi Validator + Handler + Command i Result object

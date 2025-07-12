@@ -1,24 +1,34 @@
+Kao i u Vertical slice u Basket,Catalog a i generalno, kada client salje/prima podatke preko klase, to mora biti DTO jer ne valja Domain klasa biti izlozena
+
 Ordering service koristi Clean arhitekturu, sto znaci da je svaki layer VS projekat(folder) za sebe. 
 Do sada, u Catalog, Basket sam koristio Vertical slice gde svi layeri stoje u istom projektu(folderu) tipa ASP.NET Core Empty.
 
 Domain layer: Class library tip projekta, jer ne komunicira sa clientom. 
-			  DDD, Tabele (Entity jer korisitm SQL DB), Rich-domain model, Value Objects, Aggregate, Strong-typed Id, Domain Event, Integration Event
+			  DDD, Tabele (Entity jer korisitm SQL DB), Rich-domain model, Value Objects, Aggregate, Strong-typed Id, Domain Event
+			  Ne referencira nijedan layer. 
 
 Infrastructure layer: Class library tip projekta, jer ne komunicira sa clientom.
-					  DB connection (Repository, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR
+					  DB connection (Repository if using, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR, Interceptors for Audit columns and Domain Event.
+					  Interceptor for Domain Events uses MediatR ali registrovanje MediatR se desava u Application layer.
+					  Confgiruation clases za svaku tabelu kako bih izbego da sve to stavljam u OnModleCreating.
+					  Referencira Domain i po potrebi Application. 
 
 Applicaiton layer: Class library tip projekta, jer ne komunicira sa clientom.
 				   CQRS, FluentValidation i Mediator (FV i MediatR u BuildingBlocks definsiani)
 				   DomainEventHandler, IntegrationEventHandler
+				   Event Sourcing pattern.
+				   Referencira Domain. 
 
 API layer: ASP.NET Core Empty tip projekta, jer komunicira sa clientom i samo on ima Program.cs 
 		   Minimal API Endpoint 
 
-Integration Event je kada Basket trigeruje RabbitMQ koji ce da trigeruje Ordering da je Integration event iz Basket poslat tj da je Basket checkout izvrsen. 
+Domain Event se Publish/Subscribe unutar istog servisa putem MediatR.
+Integration Event je kada Basket Publish integration event to RabbitMQ koji ce da obavesti Ordering da je Integration event iz Basket poslat tj da je Basket checkout izvrsen. 
 
 U svakom layer, osim Domain, kreiram DependencyInjection.cs u koju cu smestiti ono sto bih za taj layer napisao u Program.cs, pa cu tu klasu da uvezem u Program.cs. Ovime
 postizem da Program.cs ne bude ogroman i nepregledan sto je u skladu sa Clean arhitekturom. DependencyInjection.cs je extension metod za IServiceCollection, jer IServiceCollection
-registruje sve stvari pomocu "builder.Services..."u Program.cs
+registruje sve stvari pomocu "builder.Services..." u Program.cs
 
 Svaki od patterna, spomenutih u svakom layeru iznad, bice objasnjen u odgovarajucem layeru.
 
+Domain ne referencira nijedan layer. Infrastructure i Application layer references Domain. Infrastructure can also reference Application.

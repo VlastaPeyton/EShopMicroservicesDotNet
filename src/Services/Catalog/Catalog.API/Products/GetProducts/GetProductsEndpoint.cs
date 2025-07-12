@@ -1,8 +1,10 @@
 ﻿// Carter instaliram u Catalog, jer ako instliram u BB, nece Postman hteti. 
+using Catalog.API.DTOs;
+
 namespace Catalog.API.Products.GetProducts
 {   // Pogledaj CreateProductEndpoint i CreateProductCommandHandler, da ne ponavljam. Jedina razlika sto je sad CQRS Query, pa nema Validacija. 
     public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
-    public record GetProductsResponse(IEnumerable<Product> Products);
+    public record GetProductsResponse(IEnumerable<ProductResultDTO> products);
  
     public class GetProductsEndpoint : ICarterModule
     {   
@@ -17,7 +19,7 @@ namespace Catalog.API.Products.GetProducts
                 // MediatR(Sender) na osnovu GetProductsQuery zna da mora pozove Handle metodu iz GetProductsQueryHandler
                 var response = result.Adapt<GetProductsResponse>();
 
-                return Results.Ok(response);
+                return Results.Ok(response);// U FE mora se uraditi result.products da bih dohvatio zasita ovu listu, jer Response object je samo wrapper
 
             }).WithName("GetProducts")
               .Produces<GetProductsResponse>(StatusCodes.Status200OK)

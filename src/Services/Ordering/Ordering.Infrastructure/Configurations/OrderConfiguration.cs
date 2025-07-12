@@ -6,100 +6,83 @@ using Ordering.Domain.Models;
 using Ordering.Domain.Value_Objects;
 
 namespace Ordering.Infrastructure.Configurations
-{   /* Definisem uslove za Orders tabelu umesto da ih, sa uslovima za ostale tabele,
-    pisem u ApplicationDbContext OnModelCreating metodi.  */
+{   
+    // Objasnjeno u CustomerConfiguration.cs.
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
-        // Ova metoda mora zbog interface.
-
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            /* Za zeljene kolone iz Order.cs(Id, OrderItems, CustomerId, OrderName, ShippingAddress,
-             BillingAddress, Payment, TotalPrice or  Status) definisem uslove. */
-
-            builder.HasKey(o  => o.Id); // PK je uvek Id kolona iz Entity klase
-            /* Id je tipa OrderId,a to je custom type (Value Object) koji ima Value polje. 
-          SQL baza ne zna automatski kako da u kolonu stavi custom tip, pa moram definisati taj proces 
-          skladistenja sa HasConversion. */
+            builder.HasKey(o  => o.Id); 
             builder.Property(o => o.Id).HasConversion(
                 orderId => orderId.Value, // For writing in DB
                 dbId => OrderId.Of(dbId)  // For reading from DB
-                );
+            );
 
-            // Relacija Order-Customer 
+            // Relacija FK-PK za Order-Customer 
             builder.HasOne<Customer>() // 1 Order pripada 1 Customer
                    .WithMany()         // 1 Customer moze imati vise Orders
-                   .HasForeignKey(o => o.CustomerId) /*  Customer polje iz Order.cs je 
-                        FK za Orders tabelu koji gadaj PK (Id polje) u Customers tabeli, stoga sta god izmenio u Orders tabeli 
-                        odrazice se na Customers tabelu i obratno. Zato, u Postman prilikom "POST CreateOrder" 
-                        moram CustomerId uneti neki od postojecih iz CustomerId. */
+                   .HasForeignKey(o => o.CustomerId) 
                    .IsRequired();
 
-            // Relacija Order-OrderItem
-            builder.HasMany(o => o.OrderItems) // 1 Order moze imati vise OrderItems
+            // Relacija FK-PK Order-OrderItem jer OrderItems polja u Order je Navigational attribute. Ovo nisam mogo ja msm napisati u OrderItemConfiguration
+            builder.HasMany(o => o.OrderItems) // 1 Order moze imati vise OrderItems jer OrderItems je lista
                    .WithOne()                  // 1 OrderItem pripada samo 1 Orderu
-                   .HasForeignKey(oi => oi.OrderId); /* OrderId polje iz OrderItem.cs je FK koji gadja PK (Id polje) iz Order.cs 
-                    OrderId, stoga ako nesto modifikujem u Orders tabeli afektovace i OrderItems tabelu i obratno.
-                    Zat, u Postman "PUT UpdateOrder" moram uneti postojeci OrderId iz Orders tabele koja ima Seedovano 2 Ordera kroz
-                    InitialData.cs (ali imacu jos jedan Order dodat nakon "POST CreateOrder" u Postman. 
-                   */
+                   .HasForeignKey(oi => oi.OrderId); 
 
-            /* TotalPrice je expression bodied getter (no setter) i onda mora ovako da se navede iako nema uslov za njega, jer u suportnom
-             nece EF da napravi tu kolonu u tabeli. */
+            // TotalPrice je expression bodied property i onda mora ovako da se uradi, jer u suportnom nece EF Core da napravi tu kolonu u tabeli
             builder.Property(o => o.TotalPrice);
 
-            // Enum polje iz Order.cs 
+            // Status kolona je Enum type i zelim da vrednosti budu string,a ne 1,2,3,4 i zato mora rucno. Ista fora kao kod CustomerId u CustomerConfiguration.
             builder.Property(o => o.Status)
-                   .HasDefaultValue(OrderStatus.Draft)
-                   .HasConversion(
-                        s => s.ToString(), // For writing to DB
-                        dbStatus => (OrderStatus)Enum.Parse(typeof(OrderStatus), dbStatus) // For reading from DB
+                   .HasConversion( 
+                        s => s.ToString(), // For writing to DB to store it as a string.
+                        dbStatus => (OrderStatus)Enum.Parse(typeof(OrderStatus), dbStatus) // For reading from DB. Mora konverzija from string to enum, jer Status je OrderStatus(enum) type
                     );
 
-            // Complex type (custom type) polje iz Order.cs se ovako mapira da bude kolona tabele
+            // Complex type (custom type) OrderName polje iz Order.cs se ovako pravi ako zelim da bude kolona u tabeli
             builder.ComplexProperty(
                 o => o.OrderName, nameBuilder =>
                 {   // Value polje iz OrderName.cs
-                    nameBuilder.Property(n => n.Value) 
-                               .HasColumnName(nameof(Order.OrderName))
-                               .HasMaxLength(100)
+                    nameBuilder.Property(n => n.Value)  // Value polje iz OrderName.cs postaje kolona u Orders tabeli
+                               .HasColumnName(nameof(Order.OrderName)) // Dodelim ime ove kolone, ali normalno da ocu da se zove OrderName
+                               .HasMaxLength(100) // Ova i linije ispod su uslovi za OrderName kolonu
                                .IsRequired();
                 });
 
-            // Complex type (custom type) polje iz Order.cs se ovako mapira da bude kolona tabele
+            // Complex type (custom type) ShippingAddress polje iz Order.cs se ovako pravi ako zelim da bude kolona tabele
             builder.ComplexProperty(
                 o => o.ShippingAddress, addressBuilder =>
-                {   // FirstName polje iz Address.cs
+                {   // FirstName polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.FirstName) 
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za FirstName kolonu
                                   .IsRequired();
-                    // LastName polje iz Address.cs 
+                    // LastName polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.LastName)
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za LastName kolonu
                                   .IsRequired();
-                    // EmailAddress polje iz Address.cs 
+                    // EmailAddress polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.EmailAddress)
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za EmailAddress kolonu
                                   .IsRequired();
-                    // AddressLine polje iz Address.cs 
+                    // AddressLine polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.AddressLine)
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za AddressLine kolonu
                                   .IsRequired();
-                    // Country polje iz Address.cs 
+                    // Country polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.Country)
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za Country kolonu
                                   .IsRequired();
-                    // State polje iz Address.cs 
+                    // State polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.State)
-                                  .HasMaxLength(50)
+                                  .HasMaxLength(50) // Ovo i linija ispod su uslovi za State kolonu
                                   .IsRequired();
-                    // ZipCode polje iz Address.cs 
+                    // ZipCode polje iz Address.cs postaje FirstName kolona u Orders tabeli
                     addressBuilder.Property(a => a.ZipCode)
-                                  .HasMaxLength(5)
+                                  .HasMaxLength(5) // Ovo i linija ispod su uslovi za ZipCode kolonu
                                   .IsRequired();
                 });
 
-            // Complex type (custom type) polje iz Order.cs se ovako mapira da bude kolona tabele
+            // Isto vazi kao za ShippingAddress
             builder.ComplexProperty(
                 o => o.BillingAddress, addressBuilder =>
                 {   // FirstName polje iz Address.cs
@@ -131,7 +114,8 @@ namespace Ordering.Infrastructure.Configurations
                                   .HasMaxLength(5)
                                   .IsRequired();
                 });
-            // Complex type (custom type) polje iz Order.cs se ovako mapira da bude kolona tabele
+
+            // Isto vazi kao za ShippingAddress
             builder.ComplexProperty(
                 o => o.Payment, paymentBuilder =>
                 {   // CardName polje iz Payment.cs 

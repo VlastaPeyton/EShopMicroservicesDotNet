@@ -1,12 +1,14 @@
 ﻿
 using Basket.API.Data;
+using Basket.API.DTOs;
+using Basket.API.Extensions;
 using Discount.gRPC;
 using FluentValidation;
 
 namespace Basket.API.Basket.StoreBasket
 {   
     // Obasnjeno u CreateProductEndpoint i CreateProductCommandHandler. Da se ne ponavljam.
-    public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
+    public record StoreBasketCommand(StoreShoppingCartDTO Cart) : ICommand<StoreBasketResult>;
     public record StoreBasketResult(string UserName);
  
     public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
@@ -29,12 +31,12 @@ namespace Basket.API.Basket.StoreBasket
         {
             await DeductDiscount(command.Cart, cancellationToken); // Definisacu ispod ovu metodu
             
-            await repository.StoreBasket(command.Cart,cancellationToken); // Koristi CachedBasketRepository metodu
+            await repository.StoreBasket(command.Cart.FromSCDtoToSC(), cancellationToken); // Koristi CachedBasketRepository metodu ali pre toga pretvori StoreShoppingCartDTO u ShoppingCart jer Repository treba da radi smo sa Models klasom.
 
             return new StoreBasketResult(command.Cart.UserName);
         }
 
-        public async Task DeductDiscount(ShoppingCart cart, CancellationToken cancellationToken)
+        public async Task DeductDiscount(StoreShoppingCartDTO cart, CancellationToken cancellationToken)
         {
             // Komunicira sa Discout.gRPC i sracunaj cenu produkta posle popusta
             foreach (var item in cart.Items)

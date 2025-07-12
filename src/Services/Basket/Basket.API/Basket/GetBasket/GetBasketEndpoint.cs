@@ -1,12 +1,14 @@
 ﻿// Carter isntaliram u Basket, a ne u BB, jer samo ovako Postman i Client oce dagadjaju Endpoint
 
+using Basket.API.DTOs;
+
 namespace Basket.API.Basket.GetBasket
 {    // Pogledaj StoreBasketEndpoint i StoreBasketCommandHandler. Da ne ponavljam.
      
     //public record GetBasketRequest(string UserName);
     /* Ne treba Request object, jer argument mu je prostog tipa i mozemo ga kroz URL ili Query proslediti.
        Iako nema Request, Query u Handler klasi mora uvek da ima makar i bez argumenata. */
-    public record GetBasketResponse(ShoppingCart Cart);
+    public record GetBasketResponse(ReturnShoppingCartDTO cart); // Ne valjda Models klasu (tabelu) da vratim clientu, vec DTO. Kao u Catalog sto sam radio.
 
     public class GetBasketEndpoint : ICarterModule
     {

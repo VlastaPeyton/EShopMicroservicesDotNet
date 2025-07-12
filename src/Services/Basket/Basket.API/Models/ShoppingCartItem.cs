@@ -3,7 +3,7 @@
      // Bakset koristi NoSQL bazu (Postgres via Marten,a Marten je pandan EF Core). U NoSQL, Tabela se zove Collection, Row se zove Document, Column se zove Field.
      // NoSQL DB nema PK-FK
     public class ShoppingCartItem // Ovo nije Entity, jer ne radim SQL tj EF Core, vec NoSQL (via Marten), ali ovo svakako predstavlja "tabelu" tipa ShoppingCartItem
-    {   // ShoppingCartItem is nested in ShoppingCart, so Marten will only allow PK for ShoppingCart, not for ShoppingCartItem
+    {   // ShoppingCartItem is nested in ShoppingCart, so Marten will only allow PK for ShoppingCart, not for ShoppingCartItem due to nested document
         public int Quantity { get; set;} = default!;
         // Znam iz Catalog Product.cs sta ovo znaci 
         public string Color { get; set;} = default!;

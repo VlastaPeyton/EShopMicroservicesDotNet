@@ -13,7 +13,8 @@ namespace Catalog.Api.Products.CreateProduct
         CQRS ne sadrzi DTO objects (kao sto bi bilo u slucaju bez CQRS), vec Reqeust i Response objects koji su record type. 
         
         Request, Response object mora imati argumente istog imena i tipa kao Query/Command i Result object u Handler klasi, respektivno, kako bi mapiranje moglo da se izvrsi.
-    
+        Ako je Argument Request i Response tj Command/Query i Result objekta klasa, to ne sme biti klasa koja predstavlja tabelu u bazi, vec DTO klasa. Ovime postizem razdvajanje API od Domain layera.
+
         ICarterModule (Carter NuGet package) omogucava kreiranje Minimal API Endpoint bez Controller. 
 
         ISender (MediatR NuGet package) omogucava koristecenje Mediator patterna zbog mapiranja Request u Command/Query i Result u Response. 

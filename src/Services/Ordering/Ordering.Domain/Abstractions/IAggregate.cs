@@ -17,7 +17,7 @@ namespace Ordering.Domain.Abstractions
             
         IDomainEvent, jer ko za IEntity i Entity, dobra praksa preko interface, plus imam OrderCreatedEvent i OrderUpdatedEvent, a DomainEvents ne moze da bude oba tipa, pa zato interface im pravim.
          */
-        public IDomainEvent[] ClearDomainEvents(); 
+        public IDomainEvent[] ClearDomainEvents();  // Zbog DispatchDomainEventsInterceptor u Infrastructure nam treba. Objasnicu tamo zasto je morao potpis funkcije da bude ovde.
     }
 
     // Zbog generic T u IEntity<T>, moramo imati i IAggregate<T> 

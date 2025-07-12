@@ -1,0 +1,14 @@
+﻿CQRS => Za razliku od Vertical slice (Catalog i Basket), Command/Query.cs sadrzace Command/Query, Result object i Validatior.
+		Command/QueryHandler.cs sadrzace samo handler 
+		Endpoint se kodira u API layeru. 
+
+MediatR logging/validation behaviour(FluentValidation i Logging iz BuildingBlocks), 
+Domain Event Handler i Integration Even Handler, Mapster, application logic je ovde smestena
+
+MediatR ovde moram da registrujem iako ga i u Infrastructure korisitm.
+
+References Domain layer.
+
+Event Sourcing pattern:
+	Ide uz CQRS cesto. Kada zelim da zamenim nesto u bazi, prvo se to zameni u kodu, pa se kreira event koji se sacuva u Event Store, pa on to zameni u bazi. Ovime cuvam istoriju promena u bazi pomocu Event Store.
+	Event Store se uveze kao NuGet package.

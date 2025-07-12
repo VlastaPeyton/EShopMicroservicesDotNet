@@ -9,8 +9,8 @@ namespace Ordering.Domain.Models
     public class OrderItem : Entity<OrderItemId> 
     {
         // Nalsedili smo Id(OrderItemId tipa jer radim Strongly-typed Id), CreatedAt, ModifiedOn, ModifiedBy i CreatedBy iz Entity
-        public OrderId OrderId { get; private set; } = default!; // Povezuje Id of Order.cs  jer 1 OrderItem pripada 1 Order-u, a List<OrderItem> je navigational attribute u Order pa zato ovde mora OrderId.
-        public ProductId ProductId { get; private set; } = default!; 
+        public OrderId OrderId { get; private set; } = default!; // FK. Povezuje Id of Order.cs  jer 1 OrderItem pripada 1 Order-u, a List<OrderItem> je navigational attribute u Order pa zato ovde mora OrderId.
+        public ProductId ProductId { get; private set; } = default!; // FK
         // Povezuje Id of Product.cs jer 1 OrderItem je 1 Product ali 1 Product moze biti selektovan vise puta pa onda 1 Product bude vise OrderItems-a 
         public int Quantity { get; private set; } = default!;
         public decimal Price { get; private set; } = default!;

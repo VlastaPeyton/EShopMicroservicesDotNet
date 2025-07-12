@@ -38,11 +38,11 @@ namespace Basket.API.Data
                 return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket)!; // Napravi ShoppingCart from JSON jer Redis samo JSON sadrzi
 
             // Ako nema u cache, uzimamo iz baze
-            var basket = await repository.GetBasket(userName, cancellationToken);
+            var basket = await repository.GetBasket(userName, cancellationToken); // ReturnShoppingCartDTO koji vracam klijentu, a ne ShoppingCart vec ReturnShoppingCartDTO zbog razdvajanja Domain i API layera
             // Pa upisujemo u cache da ima za naredni put ako zatreba. 
             // Redis cuva sve u key-value formatu, gde value mora biti JSON i zato basket pretvaramo u JSON, dok key je userName jer je prosledjen GetBasket metodi. 
             await cache.SetStringAsync(userName, JsonSerializer.Serialize(basket), cancellationToken);
-            // Pa vratimo clientu
+            // Pa vratimo clientu ali ne ShoppingCart vec ReturnShoppingCartDTO zbog razdvajanja Domain i API layera
             return basket;
         }
 

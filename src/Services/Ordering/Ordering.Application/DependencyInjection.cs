@@ -15,9 +15,9 @@ namespace Ordering.Application
         {
             // Add services to the container 
 
-            // Mediator je u Application layer
+            // Mediator je u Application layer iako sam ga koristio i u Infrastructure.
             services.AddMediatR(config =>
-            {  // Jer DispatchDomainEventsInterceptor koristi MediatR kao DI i
+            {  
                 config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
                // Register mediator Pipeline Behaviour (Validation and Logging) from BuildingBlocks
                 config.AddOpenBehavior(typeof(ValidationBehaviour<,>));
@@ -27,15 +27,15 @@ namespace Ordering.Application
             });
 
             /* Add Feature Management da izbegnem publish OrderCreatedIntegrationEvent from OrderCreatedEventHandler  za slucajeve 
-            kad nisam na frontendu (Client) kliknuo Checkout, vec kad sam startovao app (seedovao Ordering baze ili iz Postman gadjao 
-            CreateOrderEndpoint */
+            kad nisam na frontendu (Client) kliknuo Checkout, vec kad sam startovao app (Seedovao Ordering baze ili iz Postman gadjao CreateOrderEndpoint */
             services.AddFeatureManagement();
 
             /* Kao u Basket Program.cs sto sam dodao AddMessageBroker iz BuildingBlocks.Messaging, samo sto ovde
             AddMessageBroker(configuration, Assembly.GetExecutingAssembly()), jer Ordering je Subscriber na RabbitMQ
-            za Integration Event. Zbog ovoga, morao sam da AddApplicationServices extension method ovaj prosiri da prima 
-            IConfiguration configuration kao argument, a onda u API layer Program.cs morace AddApplicationServices(builder.Configuration)*/
+            za Integration Event. Zbog ovoga, morao sam da AddApplicationServices extension method ovaj prosirim da prima 
+            IConfiguration kao argument i onda u API layer Program.cs morace AddApplicationServices(builder.Configuration) */
             services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
+
             return services;
         }
     }

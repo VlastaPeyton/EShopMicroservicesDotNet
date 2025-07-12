@@ -13,29 +13,26 @@ namespace Ordering.Infrastructure
      jer svaki "builder.Services.Add.." u Program.cs je IServiceCollection. */
     public static class DependencyInjection
     {   // Extension method (koji je uvek static) za Infrastructure layer
-        public static IServiceCollection AddInfrastructureServices
-            (this IServiceCollection services, IConfiguration configuration)
-        { // Extension method for Infrastructure layer
-
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        { 
             // Zbog IConfiguration argumenta, u Program.cs bice builder.Services.AddInfrastructureServices(builder.Configuration)
             
-            // U Ordering.API appsettings (jer samo tamo postoji) definisacu ovo da bi se ocitalo ovde
+            // U Ordering.API appsettings (jer samo tamo postoji appsettings jer je API layer ASP.NET Core Empty projekat) definisacu Connection String da bih mogo da ga ocitam ovde
             var connectionString = configuration.GetConnectionString("Database");
 
-            // AddScoped jer imam vise Intercepotors (AuditableEntityInterceptor.cs i DispatchDomainEventInterceptor.cs) 
+            // AddScoped jer sam ApplicationDbContext registrovao kao AddScoped, a Interceptors se odnose na DbContext jer on reaguje sa EF Core.
             services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventInterceptor>();
 
             // Add services to the container 
             services.AddDbContext<ApplicationDbContext>(config =>
-            {   /* Register Interceptor for classes that implemented IEntity (Customer.cs, Order.cs, OrderItem.cs, Product.cs)
-                tj za tabele Orders, OrderItems, Customers i Products, da upise vrednosti u Audit kolone ako se modifikuje tabela. */
-                config.AddInterceptors(new AuditableEntityInterceptor());
+            {  
                 config.UseSqlServer(connectionString);
             });
-                
+
             // Registrujem da ApplicationDbContext prepoznaje se kao IApplicationDbContext
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+
             return services;    
         }
     }

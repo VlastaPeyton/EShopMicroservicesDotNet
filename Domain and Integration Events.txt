@@ -1,0 +1,24 @@
+Postoje 2 vrste Events:
+                1) Domain Event  - Domain Event je Published(Dispatched) i Consumed(Subscribed) unutar istog service (Ordering u mom slucaju) i zato koristimo MediatR jer je unutar istog servisa. 
+                                   Domain Event se Publish kad se desi modifikacija u bazi (moze i za reading from db, ali je retko).
+                                   Za Domain Event kazem Dispatch(Publish)/Consume, a za Integration Event samo Publish/Consume.
+                                   Imamo OrderCreatedEvent i OrderUpdatedEvent kao Domain Events def u Domain layer.
+
+                2) Integration Event - Integration Event je Published from Service1 (Basket u mom slucaju) i Consumed in Service2 (Ordering u mom slucaju). Publish-Consume(Subscribe) se radi preko Message Broker (RabbitMQ + MassTransit library). 
+                                       
+Domain Event flow:
+        IDomainEvent : Inotification iz MediatR.
+        OrderCreatedEvent/OrderUpdatedEvent : IDomainEvent.
+        OrderCreatedEventHandler/OrderUpdatedEventHandler : INotificationHandler<OrderCreatedEvent/OrderUpdatedEvent>/ i zbog ovoga, MediatR znace koji EventHandler da pozove kad mediator.Publish(domainEvent)
+        => mediator.Publish(domainEvent),a domainEvent moze biti OrderCreatedEvent/OrderUpdatedEvent => MediatR na osnovu tipa DomainEvent poziva odgovarajuci EventHandler. 
+
+Integration Event flow: 
+    U Basket, CheckoutBasketCommandHandler ce da publishEndpoint.Publish(BasketCheckoutEvent) u RabbitMQ kada Client u frontend ide na checkout.
+Ordering je Subscriber za to na RabbitMQ i zbog BasketCheckoutEventHandler : IConsumer<BasketCheckoutEvent>  ce u BasketCheckoutEventHandler da 
+se aktivira Consume metoda  koja ce da preko MediatR da prosledi CreateOrderCommand u  CreateOrderCommanHandler, a CreateOrderCommanHandler
+pokrece CreateNewOrder metodu koja pokrece Order.Create(iz Order.cs), a  Order.Create metoda ce pozvati AddDomainEvent da doda OrderCreatedEvent 
+u DomainEvents polje (koje Order nasledio iz Aggregate), a posto OrderCreatedEvent implements IDomainEvent (:INotification), automatski ce
+DispatchDomainEventsInterceptor (zbog IMediator) ce da uradi publish(OrderCreatedEvent), a OrderCreatedEventHandler aktivira se 
+(zbog OrderCreatedEventHandler : INotificationHandler<OrderCreatedEvent>) pa ce da Handle OrderCreatedEvent tj da Publish 
+OrderCreatedIntegrationEvent (definisacu kasnije) u RabbitMQ (prvi put da Ordering je Publisher u RabbitMQ). Zbog OrderCreatedEvent 
+aktivira se DispatchDomainEventsInterceptor.

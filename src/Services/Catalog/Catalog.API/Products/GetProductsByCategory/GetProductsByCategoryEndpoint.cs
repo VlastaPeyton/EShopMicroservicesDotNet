@@ -1,11 +1,13 @@
 ﻿// Carter isntaliram u Catalog, a ne u BB, jer samo ovako Postman i Client oce da gadjaju Endpoint
 
+using Catalog.API.DTOs;
+
 namespace Catalog.API.Products.GetProductsByCategory
 {  // Pogledaj CreateProductEndpoint i CreateProductCommandHandler, da ne ponavljam. Jedina razlika sto je sad CQRS Query, pa nema Validacija. 
 
     //public record GetProductsByCategoryRequest();
     // Nema Request, jer string Category je prost tip i mozemo proslediti preko URL ili Query parameters.
-    public record GetProductsByCateogryResponse(IEnumerable<Product> Products);
+    public record GetProductsByCateogryResponse(IEnumerable<ProductResultDTO> products);
     public class GetProductsByCategoryEndpoint : ICarterModule
     {   
         public void AddRoutes(IEndpointRouteBuilder app)

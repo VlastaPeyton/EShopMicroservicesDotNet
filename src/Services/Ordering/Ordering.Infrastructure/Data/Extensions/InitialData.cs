@@ -22,8 +22,7 @@ namespace Ordering.Infrastructure.Data.Extensions
             Product.Create(ProductId.Of(new Guid("394de0dc-bd7c-40f8-9ad3-f69284ba2b37")), "Huawei plus", 650),
             Product.Create(ProductId.Of(new Guid("310abd5a-d39d-4fdc-a075-df7aa6a4dae6")), "Xiaomi mi 9", 450)
             /* Ovo imamo u CatalogInitialData.cs, samo tamo Guid i cena drugaciji, ali ta klasa nam ne treba kad testiram Ordering. 
-             Ta klasa treba kad testiram (Seedujem) catalogdb za Basket testiranje, jer za Basket nam treba da catalogdb ima products -nisam sig u ovo
-              Proveri ovo da l trebad da se popiuni podacima iz CatalogInitialData.cs, ali ja msm da ne mora  */
+             Ta klasa treba kad testiram (Seedujem) catalogdb za Basket testiranje, jer za Basket nam treba da catalogdb ima products.*/
         };
         
         // Initial data za Orders tabelu 
@@ -48,7 +47,7 @@ namespace Ordering.Infrastructure.Data.Extensions
                     );
                 
                 order1.AddOrderItem(ProductId.Of(new Guid("e5932196-713a-49c4-9f9a-6bb92304cccf")), 2, 500); // 2 komada IPhone X
-                // Mora isti Guid  i cena kao neki od products iznad da bi imalo smila i isti
+                // Mora isti Guid  i cena kao neki od products iznad da bi imalo smila i istu cenu
                 order1.AddOrderItem(ProductId.Of(new Guid("21a90a06-7908-4fd9-9cbd-12d9c025a51b")), 3, 400); // 3 komada Samsung 10
 
                 var order2 = Order.Create(

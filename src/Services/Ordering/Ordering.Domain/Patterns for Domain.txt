@@ -5,5 +5,10 @@ Domain Events => Events folder
 Rich-domain model => Models klase imaju static Create metod umesto konstruktora. Value Object klase imaju static Of metodu umesto konstruktora.
 
 Value Objects imaju validaciju u svojoj klasi, jer su custom types, jer ne moze MediatR FluentValidaiton obzirom da se on koristi samo za Endpoint. 
+Value Objects predstavljace complex property pa to moram u OnModelCreating posebno napisati da napravim kolone od polja nekog value objekta - U infrastructure vidi ovo
+
+Publish/Consume DomainEvent se odigrava kroz MediatR. 
 
 Aggregate Root is main Entity in Aggregate, through wich other objects communicate with Aggregate. Obicno je Aggregate Root i Aggregate ista klasa.
+
+Domain ne referencira nijedan layer. Infrastructure i Application layer references Domain. Infrastructure can also reference Application.

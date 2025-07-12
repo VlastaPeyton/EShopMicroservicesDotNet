@@ -29,6 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{AD5CA6EE-2776-4183-B17C-1AC8EF726BA0}"
 	ProjectSection(SolutionItems) = preProject
 		Clean architecture.txt = Clean architecture.txt
+		Domain and Integration Events.txt = Domain and Integration Events.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{E4013D37-6A2A-477C-892B-B8A103C875E4}"

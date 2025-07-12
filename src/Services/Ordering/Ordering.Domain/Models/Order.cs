@@ -19,13 +19,14 @@ namespace Ordering.Domain.Models
         private readonly List<OrderItem> _orderItems = new(); // Child Entity. Ovu listu menjamo po potrebi. Dok OrderItems sluzi da dohvatimo ovu listu bez mogucnosti menjanja van ove klase.
         public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();  // Navigational attribute, pa OnModelCreating moram definisati PK-FK vezu za Order-OrderItem, jer List<CustomType> ne moze biti polje Order tabele.
        
-        public CustomerId CustomerId { get; private set; } = default!; // Povezuje Id of Customer.cs jer 1 Order pripada 1 Customer-u.
+        public CustomerId CustomerId { get; private set; } = default!; // FK. Povezuje Id of Customer.cs jer 1 Order pripada 1 Customer-u.
         public OrderName OrderName { get; private set; } = default!;
-        public Address ShippingAddress { get; private set; } = default!;
+        public Address ShippingAddress { get; private set; } = default!; // Ovo je custom type property, pa u OnModelCreating tj OrderConfiguration moram rucno definisati ako zelim da polja iz ShippingAddress budu kolone Orders tabele
         public Address BillingAddress { get; private set; } = default!;
         public Payment Payment { get; private set; } = default!;
-        public OrderStatus Status { get; private set; } = OrderStatus.Pending;
-        public decimal TotalPrice
+        public OrderStatus Status { get; private set; } = OrderStatus.Pending; // U OnModelCreating tj OrderConfiguration.cs ako rucno ne namestim, u koloni Status Orders tabele stajace 1,2,3,4 umesto stringova
+        // Status, Payment, Billing/ShippingAddres, OrderName su owned entities jer su custom type
+        public decimal TotalPrice // Ako zelim da Expression-bodied property bude kolona Orders tabele, moram u OnModelCreating(tj u OrderConfiguration.cs) to rucno uraditi, dok za normalne property to ne vazi
         {
             get => OrderItems.Sum(x => x.Price * x.Quantity); 
             private set { }
@@ -59,8 +60,9 @@ namespace Ordering.Domain.Models
         public void Update (OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status)
         {
             /* Prosledjujem samo atribute koji se mogu azurirati. Nisam prosledio CustomerId i OrderItems, jer customer je taj koji kreira i modifikuje(ako zeli) svoj Order. 
-            Naravno, moze se modifikovati i OrdeItems gde cu da izbrisem/dodam OrderItem iz Order(ShoppingCart), ali to cu uraditi u narednoj metodi*/
-            
+            Naravno, moze se modifikovati i OrdeItems gde cu da izbrisem/dodam OrderItem iz Order(ShoppingCart), ali to cu uraditi u narednoj metodi. 
+              Ova polja su Owned entities, i kad njih promenim, Interceptor to primeti pomocu AuditableEntityInterceptor (Infrastructure layer) i upise u Audit kolone of Order.*/
+
             OrderName = orderName;
             ShippingAddress = shippingAddress;
             BillingAddress = billingAddress;

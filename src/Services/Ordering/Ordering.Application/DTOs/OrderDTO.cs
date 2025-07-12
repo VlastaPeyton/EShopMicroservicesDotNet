@@ -18,9 +18,9 @@ namespace Ordering.Application.DTOs
         OrderStatus Status,
         List<OrderItemDTO> OrderItems);
         /* OrderDTO ima sva polja (pa i nasledjena) iz Order.cs, osim TotalPrice, jer to je expression-bodied getter,
-         pa ne mogu da ga setujem.
-           Cak je pozeljno a se isto zovu polja u DTO i Entity klasi da mapirame automatski bude tj da ne moram da kodiram 
-        mapiranje kao kod CollegeApp.  Mapiranje je pomocu Mapster library instaliran u BuildingBlocks koga referencira ovaj layer.
+         pa ne mogu da ga setujem u DTO klasi.
+           Cak je pozeljno da se isto zovu polja u DTO i Entity klasi da mapiranje automatski bude tj da ne moram da kodiram 
+        mapiranje rucno. Mapiranje je pomocu Mapster library instaliran u BuildingBlocks koga referencira ovaj layer.
            Polja u Order.cs koja su custom tipa, a taj tip ima samo jedno polje (npr OrderName.cs/Id/CustomerId ima Value polje string tipa),
         mapiraju se u proste tipove ovde. 
            Polja u Order.cs koja su custom tipa, a taj tip ima vise polja (npr Address.cs ima vise polja), mapiraju se u 

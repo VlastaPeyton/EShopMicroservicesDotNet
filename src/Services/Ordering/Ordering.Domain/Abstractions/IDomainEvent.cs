@@ -5,7 +5,7 @@ namespace Ordering.Domain.Abstractions
 {   /* Zbog DDD pravimo IDomainEvent koga ce da implementira svaki Domain Event (OrderCreatedEvent i OrderUpdatedEvent).
      Ne samo zbog DDD, vec u IAggregate DomainEvents lista sadrzi oba tipa eventa,a to moze samo ako lista bude tipa interface koga nasledjuju oba tipa. Isto objasnjenje i za AddDomainEvents u Aggregate.*/
     public interface IDomainEvent : INotification
-    {   // INotification je iz MediatR da dopusta prenos of DomainEvent kroz mediator event handler
+    {   // INotification je iz MediatR da dopusta prenos i primanje of DomainEvent kroz Mediator . Videti DispatchDomainEventsInterceptor.
         Guid EventId => Guid.NewGuid(); // Samo prilikom get ovu vrednost sracuna
 
         public DateTime OccuredOn => DateTime.Now;  
