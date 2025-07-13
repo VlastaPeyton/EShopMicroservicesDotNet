@@ -19,19 +19,19 @@ namespace Ordering.Domain.Models
         // Zbog private set, moze new OrderItem = {...}  ali nisam to koristio 
 
         // Zbog Rich-domain dodajem Create static metodu umesto konstruktora kojom cu van klase moci da setujem polja
-
-        // Konstruktor (ili static Create metoda kao u Product/Customer/Order), jer su private set polja. Stavio sam konstruktor zbog AddOrderItem metode u Order, ali sam mogo to i sa Create static metodom.
-        public OrderItem(OrderId id, ProductId productId, int quantity, decimal price)
+        public static OrderItem Create(OrderId id, ProductId productId, int quantity, decimal price)
         {
             // Validacija, ali ne moze ona iz BuldingBlocks (MediatR FluentValidation)  jer ovo je Domain layer koji ne referncira BB plus ovo nije Endpoint.
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
 
-            Id = OrderItemId.Of(Guid.NewGuid());  // Nisam u konstruktor prosledio OrderItemId, pa moram ovako jer Of metoda mu za to i sluzi. 
-            OrderId = id;
-            ProductId = productId;
-            Quantity = quantity;
-            Price = price;
+            return new OrderItem { 
+                        Id = OrderItemId.Of(Guid.NewGuid()),
+                        OrderId = id,
+                        ProductId = productId,
+                        Quantity = quantity,
+                        Price = price
+            };
         }
     }
 }

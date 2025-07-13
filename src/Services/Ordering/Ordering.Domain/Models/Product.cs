@@ -23,7 +23,7 @@ namespace Ordering.Domain.Models
 
             var product = new Product
             {
-                Id = id, // Mozda i ne moram proslediti id, jer moze Id = ProductId.Of(Guid.NewGuid())
+                Id = id, // Moro sam ProductId prosslediti u Create (nisam mogo ProductId.Of(Guid.NewGuid(()) zbog InitialData.cs da mogu proslediti seedovan Product
                 Name = name,
                 Price = price
             };

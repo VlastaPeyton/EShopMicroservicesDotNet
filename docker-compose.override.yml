@@ -83,8 +83,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-     # Levi 5672 je localhost za RabbitMQ, dok desni 5672 je Docker (igrom slucaja su isti)
-     # Levi 15672 je localhost za RabbitMQ Management Dashboard (otvaram ga u chrome) ,a desni 15672 je Docker (igrom slucaja su isti)
+     # Levi 5672 je localhost za RabbitMQ, dok desni 5672 je Docker RabbitMQ i to je default (obicno se uzimaju isti ako moze)
+     # Levi 15672 je localhost za RabbitMQ Management Dashboard (otvaram ga u chrome) ,a desni 15672 je Docker 
   basket.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -135,19 +135,18 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678;Encrypt=False;TrustServerCertificate=True
-      # Override from appsettings iz Ordering jer server sad nije localhost 1434 vec orderdb container 
       - MessageBroker__Host=amqp://ecommerce-mq:5672 # iznad pise pa moraa ovako da se override iz appsettings za Ordering
       - MessageBroker__UserName=guest # iznad pise pa moraa ovako da se override iz appsettings za Ordering
       - MessageBroker__Password=guest # iznad pise pa moraa ovako da se override iz appsettings za Ordering
       - FeatureManagement__OrderFullfilment=false # override from appsettings
+      # Objasnjenje stoji iznad u nekom servisu
     depends_on:
       - orderdb
       - messagebroker 
     ports:
       - "6003:8080"
       - "6063:8081"
-      # Iz Postman, gadjam 6063 (jer uvek https radim) of Ordering.API docker container koji preko 8081(https) sa ostalim containers 
-      # jer svaki container je PC za sebe i onda 8081 moze u svakom container (Catalog.API, Basket.API i Discout.gRPC i Ordering.API)
+      # Objasnjenje stoji u Catalog.API 
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

@@ -83,8 +83,8 @@ namespace Ordering.Domain.Models
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
 
-            var orderItem = new OrderItem(Id, productId, quantity, price);
-            
+            var orderItem = OrderItem.Create(Id, productId, quantity, price); 
+
             _orderItems.Add(orderItem);  // reaonly List<OrderItem> dopusta modifikaciju liste, ali ne i pokazivaca na nju
         }
 

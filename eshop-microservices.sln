@@ -43,6 +43,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "src\BuildingBlocks\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{6A444C3F-9FDF-4405-8E6E-DAC55095E668}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{10483AC1-983E-45D0-B910-FC29E6E0AFC3}"
+	ProjectSection(SolutionItems) = preProject
+		Yarp API Gateway.txt = Yarp API Gateway.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpApiGateway", "src\ApiGateways\YarpApiGateway\YarpApiGateway.csproj", "{233E876C-921E-42E3-839E-F56CA27F6C03}"
 EndProject

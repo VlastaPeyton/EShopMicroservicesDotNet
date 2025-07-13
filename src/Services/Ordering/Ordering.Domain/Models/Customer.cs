@@ -25,7 +25,7 @@ namespace Ordering.Domain.Models
 
             var customer = new Customer
             {
-                Id = id, // Mozda i ne moram proslediti id, moze samo Id = CustomerId.Of(Guid.NewGuid())
+                Id = id, // Moro sam proslediti CustomerId u Create (nisam mogo CustomerId.Of(Guid.NewGuid()), zbog InitialData.cs kad pravim seeding podatke da bih mogo da iskoristim CustomerId iz customer tabele seedovan
                 Name = name,
                 Email = email
             };

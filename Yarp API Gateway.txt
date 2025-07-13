@@ -1,0 +1,11 @@
+
+API Gateway je posrednik izmedju client i backend microservices. 
+Funkcije su mu:
+	1) Rotuing zahteva ka odgovarajucem servisu i vracanje odgovora -Reverse proxy
+	2) Authenticate and authorize
+	3) Rate limiter 
+	4) Caching
+	5) Load balancing
+	6) Koristi se u microservices
+
+Yarp je vrsta API gateway za .NET
