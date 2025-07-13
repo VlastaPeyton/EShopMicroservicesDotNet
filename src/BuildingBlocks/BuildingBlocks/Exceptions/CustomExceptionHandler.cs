@@ -36,7 +36,7 @@ namespace BuildingBlocks.Exceptions
                     context.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
 
-                // Ovo pokriva i ProductNotFoundException iz Product service, jer ta klasa nasledila NotFoundException
+                // Ovo pokriva sve custom exception u svakom servicu koja je nasledima NotFoundException
                 NotFoundException =>
                 (
                     exception.Message,

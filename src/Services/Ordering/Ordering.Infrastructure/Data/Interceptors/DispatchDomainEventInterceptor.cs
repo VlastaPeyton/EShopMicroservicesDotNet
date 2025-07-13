@@ -12,7 +12,20 @@ namespace Ordering.Infrastructure.Data.Interceptors
     {   /* u DepdencyInjection.cs (Program.cs) mora da se registruje  da DispatchDomainEventInterceptor se odnosi na ISaveChangesInterceptor. 
         
            IMediator je pandan IPublishEndpoint u CheckoutBasketCommandHandler u Basket koji publish BasketCheckoutEvent
-        (Integration event) to RabbitMQ na kog je Ordering service Subscribed. */
+        (Integration event) to RabbitMQ na kog je Ordering service Subscribed. 
+        
+        
+         OrdrerUpdatedEvent flow (Domain event only): User aktivira UpdateOrderEndpoint koji ce aktivirati UpdateOrderCommandHandler koji ce pokrenuti Update metod iz Order koji ce dodati OrderUpdatedEvent u DomainEvents listu, a onda 
+                                 dBContext.Orders.Update(order) ce aktivirati DispatchDomainEventInterceptor (zbog :SaveChangesInterceptor) koji ce da pokrene mediator.Publish(domainEvent) (IDomainEvent:INotification),a taj publishing
+                                 ce da aktivira OrderUpdatedEvnetHandler automatski (zbog :INotifiicationEventHandler<OrderUpdatedEvent>). OrderUpdatedEventHandler nema telo jer sam resio da je tu kraj. 
+        
+         OrderCreatedEvent flow (integration leading to domain event): User aktivira CheckoutBasketEndpoint (koji sadrzi BasketCheckoutDTO) koji ce aktivirati CheckoutBasketCommandHandler koji ce (zbog IPublishEndpoint) koji ce da mapira BasketCheckoutDTO u BasketCheckoutEvent i  publishEndpoint.Publish(BasketCheckoutEvent), a taj
+                                publishing ce da posalje BasketCheckoutEvent u RabbitMQ jer BasketCheckoutEvent: INtegrationEvent, a IntegrationEvent mora imati ista polja kao IDomainEvent jer se u RabbitMQ mapiraju. Obzirom da je Ordering.Application Consumer(Subscribed) na RabbitMQ i u MassTransit u BB je namesteno AddConsumer koje se odnosi 
+                                samo na Ordering service, a BasketCheckoutEventHandler : IConsumer<BasketCheckoutEvent> i automatski se aktivira kad u RabbitMQ stigne BasketCheckoutEvent. BasketCheckoutEventHandler, mapira BasketCheckoutEvent u CreateOrderCommand kako bi, pomocu ISender, 
+                                aktivirao CreateOrderCommandHandler automatski koji ce da pokrene Create metod iz Order koji ce dodati OrderCreatedEvent u DomainEvents listu , a onda dbContext.Orders.Add(order) koji ce aktivirati DispatchDomainEventInterceptor (zbog :SavingChangesInterceptor) koji ce da pokrene mediator.Publish(domainEvent) (IDomainEvent:INotification), 
+                                a taj publishing ce da aktivira OrderCreatedEventHanlder automatski (zbog :INotificationEventHandler<OrderCreatedEvent>) i  onda OrderCreatedEventHandler salje OrderCreatedIntegrationEvent u RabbitMQ ako je OrderFullfilment feature ON
+                                
+         */
 
         // Kucam public override i ponudi nam metode i izaberemo ove 2 override
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -57,36 +70,7 @@ namespace Ordering.Infrastructure.Data.Interceptors
             aggregates.ToList().ForEach(a => a.ClearDomainEvents()); // Mora ToList() jer to nije uradjeno u liniji na pocetku gde sam skupio aggregate
 
             foreach (var domainEvent in domainEvents)
-                await mediator.Publish(domainEvent); // Aktivira se OrdredCreatedEvenHandler 
-
-
-            /* Postoje 2 vrste Events:
-                1) Domain Event  - Domain Event je Published(Dispatched) i Consumed(Subscribed) unutar istog service (Ordering u mom slucaju) i zato koristimo MediatR jer je unutar istog servisa. 
-                                   Domain Event se Publish kad se desi modifikacija u bazi (moze i za reading from db, ali je retko).
-                                   Za Domain Event kazem Dispatch(Publish)/Consume, a za Integration Event samo Publish/Consume.
-                                   Imamo OrderCreatedEvent i OrderUpdatedEvent kao Domain Events def u Domain layer.
-
-                2) Integration Event - Integration Event je Published from Service1 (Basket u mom slucaju) i Consumed in Service2 (Ordering u mom slucaju). Publish-Consume(Subscribe) se radi preko Message Broker (RabbitMQ + MassTransit library). 
-                                       
-              Domain Event flow:
-                  IDomainEvent : Inotification iz MediatR.
-                  OrderCreatedEvent/OrderUpdatedEvent : IDomainEvent.
-                  OrderCreatedEventHandler/OrderUpdatedEventHandler : INotificationHandler<OrderCreatedEvent/OrderUpdatedEvent>/ i zbog ovoga, MediatR znace koji EventHandler da pozove kad mediator.Publish(domainEvent)
-                  => mediator.Publish(domainEvent),a domainEvent moze biti OrderCreatedEvent/OrderUpdatedEvent => MediatR na osnovu tipa DomainEvent poziva odgovarajuci EventHandler. 
-
-              Integration Event flow: 
-                U Basket, CheckoutBasketCommandHandler ce da publishEndpoint.Publish(BasketCheckoutEvent) u RabbitMQ kada Client u frontend ide na checkout.
-            Ordering je Subscriber za to na RabbitMQ i zbog BasketCheckoutEventHandler : IConsumer<BasketCheckoutEvent>  ce u BasketCheckoutEventHandler da 
-            se aktivira Consume metoda  koja ce da preko MediatR da prosledi CreateOrderCommand u  CreateOrderCommanHandler, a CreateOrderCommanHandler
-            pokrece CreateNewOrder metodu koja pokrece Order.Create(iz Order.cs), a  Order.Create metoda ce pozvati AddDomainEvent da doda OrderCreatedEvent 
-            u DomainEvents polje (koje Order nasledio iz Aggregate), a posto OrderCreatedEvent implements IDomainEvent (:INotification), automatski ce
-            DispatchDomainEventsInterceptor (zbog IMediator) ce da uradi publish(OrderCreatedEvent), a OrderCreatedEventHandler aktivira se 
-            (zbog OrderCreatedEventHandler : INotificationHandler<OrderCreatedEvent>) pa ce da Handle OrderCreatedEvent tj da Publish 
-            OrderCreatedIntegrationEvent (definisacu kasnije) u RabbitMQ (prvi put da Ordering je Publisher u RabbitMQ). Zbog OrderCreatedEvent 
-            aktivira se DispatchDomainEventsInterceptor.
-
-             */
-
+                await mediator.Publish(domainEvent); // Aktivira se OrdredCreatedEvenHandler automatski
         }
     }
 }

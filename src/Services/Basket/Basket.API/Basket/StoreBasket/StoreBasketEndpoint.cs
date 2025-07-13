@@ -19,7 +19,7 @@ namespace Basket.API.Basket.StoreBasket
                 var response = result.Adapt<StoreBasketResponse>();
 
                 return Results.Created($"/basket/{response.UserName}", response);
-                /* Frontendu ce biti poslato response u Response Body, StatusCode=201 u Response Status Line, a https://localhost:port/basket/{UserName} u Response Header.
+                /* Frontendu ce biti poslato response object u Response Body, StatusCode=201 u Response Status Line, a https://localhost:port/basket/{UserName} u Response Header.
                   Moram napraviti Endpoint za https://localhost:port/basket/{UserName} obzirom da ga ovde saljem korisniku, a to je GetBasketEndpoint.
 
                   Mora Results.Created, jer neam IActionResult kao u Controller pa da moze samo Created. 

@@ -8,11 +8,10 @@ using Ordering.Application.DTOs;
 using Ordering.Application.Extensions;
 
 namespace Ordering.Application.Orders.Queries.GetOrders
-{
+{   
     public class GetOrdersQueryHandler(IApplicationDbContext dbContext) : IQueryHandler<GetOrdersQuery, GetOrdersResult>
-    {   // Kao kod Basket imamo Repository pattern,  samo sto tamo CommandHandler (IBasketRepository repository),a ovde DbContext
+    {   // Neam Repository, pa zato IApplicationDbContext koristim i logiku pisem ovde. U Infrastructure layer IApplicationDbContext registrovan kao ApplicaitonDbContext.
 
-        // Mora metoda zbog interface
         public async Task<GetOrdersResult> Handle(GetOrdersQuery query, CancellationToken cancellationToken)
         { // Trebalo bi zbog Repository pattern, da ovu logiku smestimo u neku metodu iz IApplicaitonDbContext (definisau u ApplicationDbContext)
 
@@ -21,16 +20,13 @@ namespace Ordering.Application.Orders.Queries.GetOrders
 
             var totalCount = await dbContext.Orders.LongCountAsync(cancellationToken); // Built-in koja racuna br vrsta u tabeli
 
-            var orders = await dbContext.Orders.Include(o => o.OrderItems)
-                                                // Include every Order from Orders table with its OrderItems
+            var orders = await dbContext.Orders.Include(o => o.OrderItems) // Mora Include jer OrderItems je navigational attribute i eager loading
+                                                .AsNoTracking() // Change tracker mi ne treba, jer ne modifikujem bazu,a samo zauima memoriju i usporava
                                                 .OrderBy(o => o.OrderName.Value)
-                                                /* OrderName custom type i ne moze se poredi, ali njegovo Value polje je string i moze
-                                                 jer implicitno nasledimo IComparable*/
+                                                // OrderName custom type i ne moze se poredi, ali njegovo Value polje je string i mozejer implicitno nasledimo IComparable*/
                                                 .Skip(pageSize * pageIndex)
                                                 .Take(pageSize)
                                                 .ToListAsync(cancellationToken);
-
-            // typeof(orders) = List<Order>, ali treba mi List<OrderDTO> zbog GetOrdersResult
 
             return new GetOrdersResult( new PaginatedResult<OrderDTO>(pageIndex, pageSize, totalCount, orders.ToOrderDtoList() ));
         }

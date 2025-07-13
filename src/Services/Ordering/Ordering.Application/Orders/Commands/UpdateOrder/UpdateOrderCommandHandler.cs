@@ -1,5 +1,6 @@
 ﻿
 
+using System.Runtime.ConstrainedExecution;
 using BuildingBlocks.CQRS;
 using Microsoft.AspNetCore.Http;
 using Ordering.Application.Data;
@@ -9,35 +10,31 @@ using Ordering.Domain.Models;
 using Ordering.Domain.Value_Objects;
 
 namespace Ordering.Application.Orders.Commands.UpdateOrder
-{
-    // Za razliku od Catalog i Basket, Command/QueryHandler se pise u posebnom .cs fajlu, zbog Clean architecture.
+{   // Objasnjeno u CreateOrder
     public class UpdateOrderCommandHandler(IApplicationDbContext dbContext) : ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
-    {   // Kao kod Basket imamo Repository pattern,  samo sto tamo CommandHandler (IBasketRepository repository),a ovde DbContext 
-       
-        // Mora metoda zbog interface
+    {   
         public async Task<UpdateOrderResult> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
         {   
-            // Trebalo bi zbog Repository pattern, da ovu logiku smestimo u neku metodu iz IApplicaitonDbContext (definisau u ApplicationDbContext)
-
             var orderId = OrderId.Of(command.Order.Id);
             
             var order = await dbContext.Orders.FindAsync(orderId, cancellationToken);
-            // Da Orders tabela ima 2 PK, moralo bi [polje1, polje2] umesto orderId
-            /* Zato sto pretrazuje po orderId (Guid tipe), FindAsync je najbrze nego SingleOrDefaultAsync ili FirstOrDefaultAsync
-            i zato pitamo ispod order is null jer nema default ako nista ne nadje nego error baca*/
+            /*FindAsync pretrazuje po PK, a Id polje je PK koje, zbog OrderId tipa, u OnModelCreating tj u OrderConfiguration.cs je moralo namesteti se exlicitno.
+             Zato sto pretrazuje po orderId(Guid tipe), FindAsync je najbrze nego SingleOrDefaultAsync ili FirstOrDefaultAsync
+
+            Nisam smeo koristiti AsNoTracking, jer mi treba Change Tracking za order, obzirom da SaveChangesAsync nakon Update(order) zahteva chage tracking da bi zamenilo u bazi. */
 
             if (order is null)
                 throw new OrderNotFoundException(command.Order.Id); // Definisao sam 
 
             // Save to DB
-            UpdateOrderWithNewValues(order, command.Order); 
-            dbContext.Orders.Update(order); // Buil-in za DbContext
+            UpdateOrderWithNewValues(order, command.Order); // order bice izmenjen, jer je reference type 
+            dbContext.Orders.Update(order); // Buil-in za DbContext i nema await za Update. Update ce da aktivira DispatchDomainEventInterceptor jer on nasledio SavingChangesInterceptor 
             await dbContext.SaveChangesAsync(cancellationToken); // Ima commit/rollback
 
             return new UpdateOrderResult(true);
         }
 
-        // Update Order without modify OrderItems list da pozove Update iz Order.cs
+        // Update Order without modify OrderItems list tj koristim Update iz Order.cs koja ne azurira OrderItems
         private void UpdateOrderWithNewValues(Order order, OrderDTO orderDto)
         {
             // Update metoda iz Order.cs zahteva  OrderName, ShippingAddress, BillingAddress, Payment, Status
@@ -72,8 +69,10 @@ namespace Ordering.Application.Orders.Commands.UpdateOrder
                          billingAddress: updatedBillingAddress,
                          payment: updatedPayment,
                          status: orderDto.Status);
-            
-            // Update metoda pokrece AddDomainEvent (OrderUpdatedEvent) u DomainEvents listu koju Order.cs nasledio iz Aggregate
+
+            /*Update metoda pokrece AddDomainEvent da doda OrderUpdatedEvenet u DomainEvents polje (koje Order nasledio iz Aggregate),
+             a posto OrderUpdatedEvenet implements IDomainEvent (:INotification), automatski ce DispatchDomainEventsInterceptor (zbog IMediator) da 
+            publish(OrderUpdatedEvenet) i automatski ce da se pozove OrderUpdatedEvenetHandler (zbog OrderUpdatedEvenetHandler : INotificationHandler<OrderUpdatedEvenet>).*/
         }
     }
 }

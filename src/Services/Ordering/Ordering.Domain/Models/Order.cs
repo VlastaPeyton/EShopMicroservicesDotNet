@@ -17,7 +17,7 @@ namespace Ordering.Domain.Models
            Objasnjenje za _orderItems i OrderItems pogledaj u Aggregate.cs jer isti slucaj ima tamo.
         */
         private readonly List<OrderItem> _orderItems = new(); // Child Entity. Ovu listu menjamo po potrebi. Dok OrderItems sluzi da dohvatimo ovu listu bez mogucnosti menjanja van ove klase.
-        public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();  // Navigational attribute, pa OnModelCreating moram definisati PK-FK vezu za Order-OrderItem, jer List<CustomType> ne moze biti polje Order tabele.
+        public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();  // Navigational attribute, pa OnModelCreating moram definisati PK-FK vezu za Order-OrderItem, jer List<CustomType> ne moze biti polje Order tabele. Pristupam ovome pomocu Include u QueryHandler klasama jer je ovo Eager loading
        
         public CustomerId CustomerId { get; private set; } = default!; // FK. Povezuje Id of Customer.cs jer 1 Order pripada 1 Customer-u.
         public OrderName OrderName { get; private set; } = default!;
@@ -51,6 +51,7 @@ namespace Ordering.Domain.Models
                 Payment = payment,
                 Status = OrderStatus.Pending
             };
+            // OrderItems se dodaju pomocu AddOrderItem nakon Create 
 
             order.AddDomainEvent(new OrderCreatedEvent(order)); // Nasledjena metoda iz Aggregate koja modifikuje _domainEvents
             return order;

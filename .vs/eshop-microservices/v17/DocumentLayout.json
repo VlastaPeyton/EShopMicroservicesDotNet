@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Projects\\EShopMicroservicesGithub\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{691E4179-5D6B-400A-A8F7-84F481ED9331}|src\\Services\\Basket\\Basket.API\\Basket.API.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\basket\\basket.api\\dtos\\basketcheckoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{691E4179-5D6B-400A-A8F7-84F481ED9331}|src\\Services\\Basket\\Basket.API\\Basket.API.csproj|solutionrelative:src\\services\\basket\\basket.api\\dtos\\basketcheckoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{691E4179-5D6B-400A-A8F7-84F481ED9331}|src\\Services\\Basket\\Basket.API\\Basket.API.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\basket\\basket.api\\rabbitmq.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{691E4179-5D6B-400A-A8F7-84F481ED9331}|src\\Services\\Basket\\Basket.API\\Basket.API.csproj|solutionrelative:src\\services\\basket\\basket.api\\rabbitmq.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.application\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|solutionrelative:src\\services\\ordering\\ordering.application\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.application\\dtos\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{95489D4E-6E41-4490-BE81-50A70BF8B029}|src\\Services\\Ordering\\Ordering.Application\\Ordering.Application.csproj|solutionrelative:src\\services\\ordering\\ordering.application\\dtos\\addressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,60 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BasketCheckoutDTO.cs",
-              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Basket\\Basket.API\\DTOs\\BasketCheckoutDTO.cs",
-              "RelativeDocumentMoniker": "src\\Services\\Basket\\Basket.API\\DTOs\\BasketCheckoutDTO.cs",
-              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Basket\\Basket.API\\DTOs\\BasketCheckoutDTO.cs",
-              "RelativeToolTip": "src\\Services\\Basket\\Basket.API\\DTOs\\BasketCheckoutDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T21:47:28.594Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RabbitMQ.txt",
-              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Basket\\Basket.API\\RabbitMQ.txt",
-              "RelativeDocumentMoniker": "src\\Services\\Basket\\Basket.API\\RabbitMQ.txt",
-              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Basket\\Basket.API\\RabbitMQ.txt",
-              "RelativeToolTip": "src\\Services\\Basket\\Basket.API\\RabbitMQ.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-12T21:47:15.945Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OrderDTO.cs",
-              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\DTOs\\OrderDTO.cs",
-              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Application\\DTOs\\OrderDTO.cs",
-              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\DTOs\\OrderDTO.cs",
-              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Application\\DTOs\\OrderDTO.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T21:14:26.151Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddressDTO.cs",
-              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\DTOs\\AddressDTO.cs",
-              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Application\\DTOs\\AddressDTO.cs",
-              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Application\\DTOs\\AddressDTO.cs",
-              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Application\\DTOs\\AddressDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T21:11:55.577Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"

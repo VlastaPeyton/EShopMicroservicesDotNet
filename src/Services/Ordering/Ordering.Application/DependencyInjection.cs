@@ -26,14 +26,11 @@ namespace Ordering.Application
                 // Kako bi se povezao sa Command/QueryHandler klasom u Handler
             });
 
-            /* Add Feature Management da izbegnem publish OrderCreatedIntegrationEvent from OrderCreatedEventHandler  za slucajeve 
-            kad nisam na frontendu (Client) kliknuo Checkout, vec kad sam startovao app (Seedovao Ordering baze ili iz Postman gadjao CreateOrderEndpoint */
-            services.AddFeatureManagement();
+            /* Omogucava da tokom app running simuliram da li zelim da se OrderCreatedEventHandler aktivira ili ne. Treba da omogucim rucno, aktivaciju toga samo ako je BasketCheckout, a ako sam 
+             * gadjao CreateOrderEndpoint onda mi to ne treba. Pogledaj OrderCreatedEvenHandler objasnjenje. */
+            services.AddFeatureManagement();  
 
-            /* Kao u Basket Program.cs sto sam dodao AddMessageBroker iz BuildingBlocks.Messaging, samo sto ovde
-            AddMessageBroker(configuration, Assembly.GetExecutingAssembly()), jer Ordering je Subscriber na RabbitMQ
-            za Integration Event. Zbog ovoga, morao sam da AddApplicationServices extension method ovaj prosirim da prima 
-            IConfiguration kao argument i onda u API layer Program.cs morace AddApplicationServices(builder.Configuration) */
+            // Ordering is Subscriber na RabbitMQ i zato AddMessageBroker(configuration, Assembly.GetExecutingAssembly()). Kod Basket ovo je samo AddMessageBroker(configuration).
             services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
 
             return services;

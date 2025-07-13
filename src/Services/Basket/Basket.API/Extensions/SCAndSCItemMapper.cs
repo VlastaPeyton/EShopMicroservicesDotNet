@@ -1,7 +1,7 @@
 ﻿using Basket.API.DTOs;
 
 namespace Basket.API.Extensions
-{   
+{   // Da ne moram namestati Mapster zbog slozenih tipova polja objekata, radim ovako jer mi lakse
     public static class SCAndSCItemMapper
     {
         public static ReturnShoppingCartDTO ToReturnShoppingCartDTO(this ShoppingCart shoppingCart)

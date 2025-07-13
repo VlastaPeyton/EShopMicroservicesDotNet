@@ -3,11 +3,11 @@
 		Endpoint se kodira u API layeru. 
 
 MediatR logging/validation behaviour(FluentValidation i Logging iz BuildingBlocks), 
-Domain Event Handler i Integration Even Handler, Mapster, application logic je ovde smestena
+Domain Event Handler i Integration Even Handler (nasledili INotificationHandler), Mapster, application logic je ovde smestena
 
 MediatR ovde moram da registrujem iako ga i u Infrastructure korisitm.
 
-References Domain layer.
+References Domain layer i BB zbog MediatR pipeline behaviours
 
 Event Sourcing pattern:
 	Ide uz CQRS cesto. Kada zelim da zamenim nesto u bazi, prvo se to zameni u kodu, pa se kreira event koji se sacuva u Event Store, pa on to zameni u bazi. Ovime cuvam istoriju promena u bazi pomocu Event Store.

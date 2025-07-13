@@ -1,4 +1,4 @@
-﻿DDD => Aggregate, Entity, IAggregate, IDomainEvent, IEntity, Value Objects. 
+﻿DDD => Aggregate, Entity, IAggregate, IDomainEvent(nasledio INotification), IEntity, Value Objects. 
 Tabele (Entity jer korisitm SQL DB)  => Models folder koji predstavlja tabele u bazi
 Strong-typed Id => Za svaku klasu iz Models pravim njoj svojstvenu Id kao custom klasu . U Value Objects folder kao i Payment i Address koji su zaista value object
 Domain Events => Events folder
@@ -12,3 +12,5 @@ Publish/Consume DomainEvent se odigrava kroz MediatR.
 Aggregate Root is main Entity in Aggregate, through wich other objects communicate with Aggregate. Obicno je Aggregate Root i Aggregate ista klasa.
 
 Domain ne referencira nijedan layer. Infrastructure i Application layer references Domain. Infrastructure can also reference Application.
+
+Dmain Event klasa koristi Models klase a ne DTO 

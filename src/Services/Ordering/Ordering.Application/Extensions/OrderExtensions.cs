@@ -1,7 +1,10 @@
 ﻿
 using System.Linq;
+using MassTransit;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Ordering.Application.DTOs;
 using Ordering.Domain.Models;
+using Ordering.Domain.Value_Objects;
 
 namespace Ordering.Application.Extensions
 {   /* Extension method for IEnumerable<Order>, jer cu u GetOrderByCustomer da koristim 
@@ -45,10 +48,9 @@ namespace Ordering.Application.Extensions
             // Sa leve strane : sam pisao imena argumenta iz OrderDTO i moram bas kao u toj klasi da ih napisem ako ih vec pisem
         }
 
+        // Jer ne moze Mapster da mapira tako lako objekte koji imaju custom type polja, pa cu rucno.
         public static OrderDTO ToOrderDto(this Order order)
         {   
-            //Zbog zaglavlja, ToOrderDto nema argumenta
-
             return DtoFromOrder(order);
         }
 
@@ -84,5 +86,6 @@ namespace Ordering.Application.Extensions
                  OrderItems: order.OrderItems.Select(oi => new OrderItemDTO(oi.OrderId.Value, oi.ProductId.Value, oi.Quantity, oi.Price)).ToList()
                 );
         }
+
     }
 }

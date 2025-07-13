@@ -11,7 +11,7 @@ builder.Services.AddApplicationServices(builder.Configuration)    // From Orderi
 
 var app = builder.Build();
 
-app.UseApiServices(); // From Ordering.API DependencyInjection
+app.UseApiServices(); // From Ordering.API DependencyInjection jer samo API layer ovo radi
 
 // Samo za Development Seeding radimo 
 if (app.Environment.IsDevelopment())

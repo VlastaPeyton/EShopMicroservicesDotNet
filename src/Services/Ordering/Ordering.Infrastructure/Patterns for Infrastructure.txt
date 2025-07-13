@@ -1,4 +1,5 @@
-﻿ DB connection (Repository ali ne koristim ga, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR, Interceptor.
+﻿ DB connection (Repository ne koristim ga, DbContext, EF Core, Seeding), Dispatch Domain Event pomocu MediatR, Interceptor.
+ Zbog nemanja Repository, DB pristup logiku pisem u Handler klasama.
  Pravim tabele od Models klasa iz Domain. Neke klase koriste Value Objects (custom types) za property, pa ako zelim da napravim kolone od internih polja tog property, moram u OnModelCreating
  da to rucno uradim. 
 

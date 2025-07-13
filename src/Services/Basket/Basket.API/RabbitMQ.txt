@@ -1,1 +1,5 @@
-﻿CheckoutBasket i DTO folder pravim tek kad u Ordering service stignem do RabbitMQ dela.
+﻿CheckoutBasket i BasketCheckoutDTO folder pravim tek kad u Ordering service stignem do RabbitMQ dela.
+
+U BB.Messaging definisao Extension za AddMessageBroker da taj kod ne bih kucao u Program.cs of Ordering (tj u Ordering.Application DependencyInjection.cs) i Basket.
+
+Integration Event i IDomainEvent moraju imati ista polja jer se u RabbitMQ mapiraju. 
