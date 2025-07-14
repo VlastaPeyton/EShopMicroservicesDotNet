@@ -10,8 +10,8 @@ namespace Ordering.Infrastructure.Data.Extensions
         // Initial data za Customers tabelu
         public static IEnumerable<Customer> CustomersInitialData => new List<Customer>
         {
-            Customer.Create(CustomerId.Of(new Guid("9cccebee-a305-4630-9e79-6722e14cd19c")), "mehmet", "mehmet@gmail.com"), // Customer1
-            Customer.Create(CustomerId.Of(new Guid("11ecf20a-12e9-4131-8c24-659476b92f62")), "john", "john@gmail.com")      // Customer2
+            Customer.Create(CustomerId.Of(new Guid("9cccebee-a305-4630-9e79-6722e14cd19c")), "covek1", "covek1@gmail.com"), // Customer1
+            Customer.Create(CustomerId.Of(new Guid("11ecf20a-12e9-4131-8c24-659476b92f62")), "covek2", "covek2@gmail.com")      // Customer2
         };
 
         // Initial data za Products tabelu 
@@ -30,11 +30,11 @@ namespace Ordering.Infrastructure.Data.Extensions
         {
             get
             {
-                var address1 = Address.Of("mehmet", "ozkaya", "mehmet@gmail.com", "Mehmet_ulica", "Turkey", "Istanbul", "38050");
-                var address2 = Address.Of("john", "doe", "john@gmail.com", "John_ulica", "England", "Nottingam", "08050");
+                var address1 = Address.Of("ime1", "prezime1", "covek1@gmail.com", "Ulica1", "Turkey", "Istanbul", "38050");
+                var address2 = Address.Of("ime2", "prezime2", "covek2@gmail.com", "Ulica2", "England", "Nottingam", "08050");
 
-                var payment1 = Payment.Of("mehmet", "1111222233334444", "12/27", "355",1);
-                var payment2 = Payment.Of("john",   "5555666677778888", "10/28", "700", 2);
+                var payment1 = Payment.Of("covek1", "1111222233334444", "12/27", "355",1);
+                var payment2 = Payment.Of("covek2",   "5555666677778888", "10/28", "700", 2);
 
                 var order1 = Order.Create(
                     OrderId.Of(Guid.NewGuid()), // Sam generise Guid
