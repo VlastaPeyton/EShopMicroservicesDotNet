@@ -16,7 +16,7 @@ namespace Ordering.Infrastructure.Configurations
             builder.Property(o => o.Id).HasConversion(
                 orderId => orderId.Value, // For writing in DB
                 dbId => OrderId.Of(dbId)  // For reading from DB
-            );
+            ); // Zbog nemanja ValueGeneratedOnAdd ovde, EF Core nece automatski generisati Id za Order tabelu
 
             // Relacija FK-PK za Order-Customer 
             builder.HasOne<Customer>() // 1 Order pripada 1 Customer

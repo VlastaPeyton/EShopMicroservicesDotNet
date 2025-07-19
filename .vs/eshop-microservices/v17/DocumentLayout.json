@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Projects\\EShopMicroservicesGithub\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\configurations\\productconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\configurations\\productconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\configurations\\orderitemconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\configurations\\orderitemconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\configurations\\orderconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\configurations\\orderconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\configurations\\customerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\configurations\\customerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\data\\extensions\\initialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\data\\extensions\\initialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,14 +39,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "InitialData.cs",
-              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
-              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
-              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
-              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwDQAAAAqAAAAAAAAAA==",
+              "Title": "ProductConfiguration.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\ProductConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\ProductConfiguration.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\ProductConfiguration.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\ProductConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T07:26:58.331Z",
+              "WhenOpened": "2025-07-19T16:02:27.76Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderItemConfiguration.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderItemConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderItemConfiguration.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderItemConfiguration.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderItemConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-19T16:02:19.657Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderConfiguration.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderConfiguration.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderConfiguration.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\OrderConfiguration.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-19T16:02:05.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CustomerConfiguration.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\CustomerConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\CustomerConfiguration.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\CustomerConfiguration.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Configurations\\CustomerConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-19T15:55:15.548Z",
               "EditorCaption": ""
             },
             {
@@ -47,7 +102,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "InitialData.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwDQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T07:26:58.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "docker-compose.override.yml",
               "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\docker-compose.override.yml",
               "RelativeDocumentMoniker": "docker-compose.override.yml",
@@ -55,8 +123,7 @@
               "RelativeToolTip": "docker-compose.override.yml",
               "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-07-13T19:52:34.449Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-13T19:52:34.449Z"
             }
           ]
         }

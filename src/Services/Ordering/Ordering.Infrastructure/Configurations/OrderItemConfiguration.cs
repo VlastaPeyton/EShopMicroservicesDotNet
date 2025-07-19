@@ -16,7 +16,7 @@ namespace Ordering.Infrastructure.Configurations
             builder.Property(oi => oi.Id).HasConversion(
                 orderItemId => orderItemId.Value, // For writing to DB
                 dbId => OrderItemId.Of(dbId)      // For reading from DB
-            );
+            ); //Zbog nemanja ValueGeneratedOnAdd ovde, EF Core nece automatski generisati Id za OrderItem tabelu
 
             // OrderId ima FK1=ProductId i FK2=OrderId. Ovde cu definisati samo FK1-PK za OrderItem-Product. Dok FK2-PK za OrderItem-Order definisacu u OrderConfiguration, jer OrderItems polje of Order je navigational attribute i ta relacija mora tamo biti definisana.
             builder.HasOne<Product>() // 1 OrderItem moze biti(imati) samo 1 Product

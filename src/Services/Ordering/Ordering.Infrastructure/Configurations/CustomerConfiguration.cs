@@ -19,7 +19,7 @@ namespace Ordering.Infrastructure.Configurations
             builder.Property(c => c.Id).HasConversion(
                 customerId => customerId.Value, // For writing in DB. Value je Guid i zato ce Id kolona biti Guid.
                 dbId => CustomerId.Of(dbId)     // For reding from DB. Id field of Customer je CustomerId tipa, a u bazi je Id kolona Guid type, ali pri citanju moram vratiti u CustomerId type, jer Of metoda tome sluzi.
-            );  
+            ); // Zbog nemanja ValueGeneratedOnAdd ovde, EF Core nece automatski generisati Id za Customer tabelu
 
             // Primitive type property of Customer.cs postaju kolone automatski, ali nekad moram nekim kolonama uslove da zadam
             builder.Property(c => c.Name).HasMaxLength(100).IsRequired();

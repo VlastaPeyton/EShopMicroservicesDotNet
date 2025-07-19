@@ -16,7 +16,7 @@ namespace Ordering.Infrastructure.Configurations
             builder.Property(p => p.Id).HasConversion(
                 productId => productId.Value, // For writing to DB
                 dbId => ProductId.Of(dbId) // For reading from DB
-                );
+            ); // Zbog nemanja ValueGeneratedOnAdd ovde, EF Core nece automatski generisati Id za Product tabelu
 
             builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
 

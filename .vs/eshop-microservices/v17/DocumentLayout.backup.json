@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Projects\\EShopMicroservicesGithub\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|c:\\projects\\eshopmicroservicesgithub\\src\\services\\ordering\\ordering.infrastructure\\data\\extensions\\initialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EB4185C-F6CC-4AD6-972F-29C35815891B}|src\\Services\\Ordering\\Ordering.Infrastructure\\Ordering.Infrastructure.csproj|solutionrelative:src\\services\\ordering\\ordering.infrastructure\\data\\extensions\\initialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1A8AC0B6-28AA-46DA-A689-2F4117600EF5}|docker-compose.dcproj|c:\\projects\\eshopmicroservicesgithub\\docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{1A8AC0B6-28AA-46DA-A689-2F4117600EF5}|docker-compose.dcproj|solutionrelative:docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -25,8 +29,25 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "InitialData.cs",
+              "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "ToolTip": "C:\\Projects\\EShopMicroservicesGithub\\src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "RelativeToolTip": "src\\Services\\Ordering\\Ordering.Infrastructure\\Data\\Extensions\\InitialData.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwDQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T07:26:58.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "docker-compose.override.yml",
               "DocumentMoniker": "C:\\Projects\\EShopMicroservicesGithub\\docker-compose.override.yml",
               "RelativeDocumentMoniker": "docker-compose.override.yml",
@@ -34,8 +55,7 @@
               "RelativeToolTip": "docker-compose.override.yml",
               "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-07-13T19:52:34.449Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-13T19:52:34.449Z"
             }
           ]
         }
